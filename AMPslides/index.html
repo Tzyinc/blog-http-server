@@ -1,0 +1,599 @@
+<!doctype html>
+<html amp lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <style amp-boilerplate>
+        body {
+            -webkit-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+            -moz-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+            -ms-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+            animation: -amp-start 8s steps(1, end) 0s 1 normal both
+        }
+
+        @-webkit-keyframes -amp-start {
+            from {
+                visibility: hidden
+            }
+
+            to {
+                visibility: visible
+            }
+        }
+
+        @-moz-keyframes -amp-start {
+            from {
+                visibility: hidden
+            }
+
+            to {
+                visibility: visible
+            }
+        }
+
+        @-ms-keyframes -amp-start {
+            from {
+                visibility: hidden
+            }
+
+            to {
+                visibility: visible
+            }
+        }
+
+        @-o-keyframes -amp-start {
+            from {
+                visibility: hidden
+            }
+
+            to {
+                visibility: visible
+            }
+        }
+
+        @keyframes -amp-start {
+            from {
+                visibility: hidden
+            }
+
+            to {
+                visibility: visible
+            }
+        }
+    </style>
+    <noscript>
+        <style amp-boilerplate>
+            body {
+                -webkit-animation: none;
+                -moz-animation: none;
+                -ms-animation: none;
+                animation: none
+            }
+        </style>
+    </noscript>
+    <link rel="canonical" href="https://tzyinc.github.io/AMPslides.html" />
+    <script async custom-element="amp-story" src="https://cdn.ampproject.org/v0/amp-story-1.0.js"></script>
+    <title>AMP Conf</title>
+
+</head>
+
+<body>
+    <amp-story poster-portrait-src='./AMPslides_files/profile.png' publisher='tenzy'
+        publisher-logo-src='./AMPslides_files/profile.png' title='AMP Conf' standalone supports-landscape>
+        <amp-story-page id=Opening>
+            <amp-story-grid-layer style="color: white; font-family: Arial, Helvetica, sans-serif; " template="fill">
+                <amp-img src="./AMPslides_files/ampconfphoto2.jpg" width="200px" height="200px" grid-area="middle-third">
+
+                </amp-img>
+            </amp-story-grid-layer>
+            <amp-story-grid-layer style="color: white; font-family: Arial, Helvetica, sans-serif; background: #0009;"
+                template="thirds">
+                <a style="text-align: left; z-index: 2; color: white" href="https://slido.com" target="_blank"
+                    grid-area="upper-third">
+                    #LS177 @ slido.com
+                </a>
+                <amp-img style="margin: auto" src="./AMPslides_files/amplogo.png" width="200px" height="200px"
+                    grid-area="middle-third">
+
+                </amp-img>
+                <h1 style="text-align: center; font-size: 4em; z-index: 2" grid-area="lower-third">
+                    Lessons from AMP Conf 2019
+                </h1>
+            </amp-story-grid-layer>
+        </amp-story-page>
+        <amp-story-page id=Introduction>
+            <amp-story-grid-layer style="color: white; font-family: Arial, Helvetica, sans-serif; " template="fill">
+                <amp-img src="./AMPslides_files/ampgoogle.png" width="200px" height="200px" grid-area="middle-third">
+
+                </amp-img>
+            </amp-story-grid-layer>
+            <amp-story-grid-layer
+                style="color: white; font-family: Arial, Helvetica, sans-serif; background: linear-gradient(225deg,#00dcc0f0 0,#005af0f0 50%);"
+                template="fill">
+            </amp-story-grid-layer>
+            <amp-story-grid-layer style="color: white; font-family: Arial, Helvetica, sans-serif; " template="vertical">
+                <h1>
+                    What is Google AMP?
+                </h1>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Originally accronym of Accelerated Mobile Pages
+                </div>
+                <a style="color: white; display: list-item; list-style-type: disc; list-style-position: inside;"
+                    href="https://www.google.com/search?q&#x3D;olaf+ez+link+charm+online" target="_blank">
+                    Usually most noticible when searching from a mobile device
+                </a>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Web component framework + Website publishing technology
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Goal: Provide a user-first format for web content
+                </div>
+            </amp-story-grid-layer>
+        </amp-story-page>
+        <amp-story-page id=Techoverview>
+            <amp-story-grid-layer style="color: white; font-family: Arial, Helvetica, sans-serif; " template="fill">
+                <amp-img src="./AMPslides_files/ampgoogle.png" width="200px" height="200px" grid-area="middle-third">
+
+                </amp-img>
+            </amp-story-grid-layer>
+            <amp-story-grid-layer
+                style="color: white; font-family: Arial, Helvetica, sans-serif; background: linear-gradient(225deg,#00dcc0f0 0,#005af0f0 50%);"
+                template="fill">
+            </amp-story-grid-layer>
+            <amp-story-grid-layer style="color: white; font-family: Arial, Helvetica, sans-serif; " template="vertical">
+                <h1>
+                    Tech Overview
+                </h1>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Online Format
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside; padding-left:40px;">
+                    Use amp components for media
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside; padding-left:40px;">
+                    Some CSS rules are not allowed
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside; padding-left:40px;">
+                    No developer or third-party Javascript, no iframes, no embeds
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Framework
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside; padding-left:40px;">
+                    AMP visual and media components (carousel, accordion, image, video)
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside; padding-left:40px;">
+                    &#x60;amp-bind&#x60; syntax to manage page state
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside; padding-left:40px;">
+                    weekly updates invisible to developers
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Standards &amp; Performance
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside; padding-left:40px;">
+                    Amp compatible pages cached by google
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside; padding-left:40px;">
+                    Pre-rendering
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside; padding-left:40px;">
+                    Search engine bot friendly
+                </div>
+            </amp-story-grid-layer>
+        </amp-story-page>
+        <amp-story-page id=CaseStudyShopee>
+            <amp-story-grid-layer style="color: white; font-family: Arial, Helvetica, sans-serif; " template="fill">
+                <amp-img src="./AMPslides_files/screenshot2.jpg" width="200px" height="200px" grid-area="middle-third">
+
+                </amp-img>
+            </amp-story-grid-layer>
+            <amp-story-grid-layer
+                style="color: white; font-family: Arial, Helvetica, sans-serif; background: linear-gradient(225deg,#00dcc0f0 0,#005af0f0 50%);"
+                template="vertical">
+                <h1>
+                    Shopee&#x27;s History With AMP
+                </h1>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    First version: July 2017
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Duplicate of our Category Page
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Hosted using a templating engine on a nodejs server
+                </div>
+            </amp-story-grid-layer>
+        </amp-story-page>
+        <amp-story-page id=CaseStudyShopee1>
+            <amp-story-grid-layer style="color: white; font-family: Arial, Helvetica, sans-serif; " template="fill">
+                <amp-img src="./AMPslides_files/screenshot2.jpg" width="200px" height="200px" grid-area="middle-third">
+
+                </amp-img>
+            </amp-story-grid-layer>
+            <amp-story-grid-layer
+                style="color: white; font-family: Arial, Helvetica, sans-serif; background: linear-gradient(225deg,#00dcc0f0 0,#005af0f0 50%);"
+                template="vertical">
+                <h2>
+                    Problems:
+                </h2>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Due to restriction on using no Javascript, we needed to select a page which did not have much
+                    interaction, but should still be attractive and informative enough to prompt users to click on an
+                    interactive element, upon which they will be led to the non-AMP Shopee page
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Syntax of AMP very different from React and awkward to code in
+                </div>
+                <h2>
+                    Solutions:
+                </h2>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Duplicated the category page UI and ignore interactions we could not achieve
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Train a dev to be proficient in AMP (git gud)
+                </div>
+            </amp-story-grid-layer>
+        </amp-story-page>
+        <amp-story-page id=CaseStudyShopee2>
+            <amp-story-grid-layer style="color: white; font-family: Arial, Helvetica, sans-serif; " template="fill">
+                <amp-img src="./AMPslides_files/screenshot2.jpg" width="200px" height="200px" grid-area="middle-third">
+
+                </amp-img>
+            </amp-story-grid-layer>
+            <amp-story-grid-layer
+                style="color: white; font-family: Arial, Helvetica, sans-serif; background: linear-gradient(225deg,#00dcc0f0 0,#005af0f0 55%);"
+                template="vertical">
+                <h1>
+                    Shopee&#x27;s History With AMP
+                </h1>
+                <a style="display: list-item; list-style-type: disc; list-style-position: inside; color: white"
+                    href="https://www.google.com/amp/s/shopee.sg/amp/Hoegaarden-White-Beer-Case-24-X-330ml-i.51552866.827952604"
+                    target="_blank">
+                    Current version: Started June 2018
+                </a>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Revamped from the ground up, starting with a paired version of Product Detail Page, followed by
+                    category page
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Using our React server-render solution to pre-render an AMP compatible page
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    AMP components are wrapped in React Components
+                </div>
+            </amp-story-grid-layer>
+        </amp-story-page>
+        <amp-story-page id=CaseStudyShopee3>
+            <amp-story-grid-layer style="color: white; font-family: Arial, Helvetica, sans-serif; " template="fill">
+                <amp-img src="./AMPslides_files/screenshot2.jpg" width="200px" height="200px" grid-area="middle-third">
+
+                </amp-img>
+            </amp-story-grid-layer>
+            <amp-story-grid-layer
+                style="color: white; font-family: Arial, Helvetica, sans-serif; background: linear-gradient(225deg,#00dcc0f0 0,#005af0f0 55%);"
+                template="vertical">
+                <h2>
+                    Problems:
+                </h2>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Unable to get user data, as without using our own url, we cannot access our cookies
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    AMP components do not look or feel like shopee components
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Refactor in api required change in two source codes
+                </div>
+                <h2>
+                    Solutions:
+                </h2>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Assume all users as non-logged in users
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Overwrite AMP css where possible and build our own components with AMP-bind where not possible
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Add redux logic to AMP project so that fetching of data is shared code
+                </div>
+            </amp-story-grid-layer>
+        </amp-story-page>
+        <amp-story-page id=CaseStudyShopee4>
+            <amp-story-grid-layer style="color: white; font-family: Arial, Helvetica, sans-serif; " template="fill">
+                <amp-img src="./AMPslides_files/screenshot2.jpg" width="200px" height="200px" grid-area="middle-third">
+
+                </amp-img>
+            </amp-story-grid-layer>
+            <amp-story-grid-layer
+                style="color: white; font-family: Arial, Helvetica, sans-serif; background: linear-gradient(225deg,#00dcc0f0 0,#005af0f0 60%); padding-top:30vh;"
+                template="vertical">
+                <h1 style="text-align: center; font-size: 4em; color: orange">
+                    62.2%
+                </h1>
+                <h1 style="text-align: center">
+                    Lower Page Load time
+                </h1>
+                <h1 style="text-align: center; font-size: 4em; color: orange">
+                    43.2%
+                </h1>
+                <h1 style="text-align: center">
+                    Uplift in organic traffic with AMP
+                </h1>
+            </amp-story-grid-layer>
+        </amp-story-page>
+        <amp-story-page id=SummaryOfDifficulties>
+            <amp-story-grid-layer
+                style="color: white; font-family: Arial, Helvetica, sans-serif; background: linear-gradient(225deg,#00dcc0 0,#005af0 65%);"
+                template="fill">
+            </amp-story-grid-layer>
+            <amp-story-grid-layer style="color: white; font-family: Arial, Helvetica, sans-serif; " template="vertical">
+                <h1>
+                    Summary Of (Existing) Difficulties
+                </h1>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    User interactions with amp-bind hard to debug and awkward
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    No user data for user settings and history (for reccomendations)
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Some AMP bugs cannot be reproduced on dev machines
+                </div>
+            </amp-story-grid-layer>
+        </amp-story-page>
+        <amp-story-page id=AMPConf>
+            <amp-story-grid-layer
+                style="color: white; font-family: Arial, Helvetica, sans-serif; mix-blend-mode: screen;"
+                template="fill">
+                <amp-img src="./AMPslides_files/shibuya.gif" width="200px" height="200px">
+
+                </amp-img>
+            </amp-story-grid-layer>
+            <amp-story-grid-layer
+                style="color: white; font-family: Arial, Helvetica, sans-serif; mix-blend-mode: overlay;"
+                template="vertical">
+                <h1
+                    style="text-align: left; font-size: 6em; line-height:30vh; font-weight:600; color:#000f; background-color:#fffa;">
+                    AMP Conf 2019
+                </h1>
+            </amp-story-grid-layer>
+        </amp-story-page>
+        <amp-story-page id=AMPConf2>
+            <amp-story-grid-layer
+                style="color: white; font-family: Arial, Helvetica, sans-serif; background: linear-gradient(225deg,#00dcc0 0,#005af0 70%);"
+                template="fill">
+            </amp-story-grid-layer>
+            <amp-story-grid-layer style="color: white; font-family: Arial, Helvetica, sans-serif; " template="vertical">
+                <h1>
+                    Features Announced
+                </h1>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    AMP script
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Bento AMP
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Signed Exchanges
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    AMP for Email
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    AMP Stories
+                </div>
+            </amp-story-grid-layer>
+        </amp-story-page>
+        <amp-story-page id=AMPscript>
+            <amp-story-grid-layer
+                style="color: white; font-family: Arial, Helvetica, sans-serif; background: linear-gradient(225deg,#00dcc0 0,#005af0 75%);"
+                template="fill">
+            </amp-story-grid-layer>
+            <amp-story-grid-layer style="color: white; font-family: Arial, Helvetica, sans-serif; " template="vertical">
+                <h1>
+                    AMP script
+                </h1>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    150 Kb limit of uncompressed JS
+                </div>
+                <a style="display: list-item; list-style-type: disc; list-style-position: inside; color: white;"
+                    href="https://github.com/ampproject/worker-dom/blob/master/web_compat_table.md" target="_blank">
+                    Limited to certain DOM APIs
+                </a>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Mutations are always accepted after a user action for a user action interval of 5 seconds
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    The 5 seconds interval is extended if the user script performs a fetch() operation
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Smaller amp-script elements with height under 300px and non-container layout are allowed unlimitted
+                    mutations
+                </div>
+            </amp-story-grid-layer>
+        </amp-story-page>
+        <amp-story-page id=BentoAmp>
+            <amp-story-grid-layer
+                style="color: white; font-family: Arial, Helvetica, sans-serif; background: linear-gradient(225deg,#00dcc0 0,#005af0 80%);"
+                template="fill">
+            </amp-story-grid-layer>
+            <amp-story-grid-layer style="color: white; font-family: Arial, Helvetica, sans-serif; " template="vertical">
+                <h1>
+                    🍱 Bento AMP 🍱
+                </h1>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Ability to use AMP components in an “un-managed” way, without loading AMP’s main JS file
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside; color: white;">
+                    Allows AMP components to coexist with other web components and frameworks on the same page
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Together with AMP-script to allow frameworks to support server side render in AMP
+                </div>
+            </amp-story-grid-layer>
+        </amp-story-page>
+        <amp-story-page id=SignedExchanges>
+            <amp-story-grid-layer
+                style="color: white; font-family: Arial, Helvetica, sans-serif; background: linear-gradient(225deg,#00dcc0 0,#005af0 85%);"
+                template="fill">
+            </amp-story-grid-layer>
+            <amp-story-grid-layer style="color: white; font-family: Arial, Helvetica, sans-serif; " template="vertical">
+                <h1>
+                    Signed Exchanges
+                </h1>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Requires browser support (Chrome 73 or higher (soon Microsoft Edge))
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside; color: white;">
+                    Technical framework that allows browsers to display publisher URLs on cached AMP results
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    All visitors, AMP or otherwise, can coexist on the same domain
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    AMP grey bar no longer neccessary
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Enables publishers to safely make their content portable, i.e. available for redistribution by other
+                    parties, while still keeping the content’s integrity and attribution
+                </div>
+            </amp-story-grid-layer>
+        </amp-story-page>
+        <amp-story-page id=AMPEmail>
+            <amp-story-grid-layer style="color: white; font-family: Arial, Helvetica, sans-serif; " template="fill">
+                <amp-img src="./AMPslides_files/oyo.gif" width="200px" height="200px" grid-area="middle-third">
+
+                </amp-img>
+            </amp-story-grid-layer>
+            <amp-story-grid-layer
+                style="color: white; font-family: Arial, Helvetica, sans-serif; background: linear-gradient(225deg,#00dcc0f0 0,#005af0f0 90%);"
+                template="vertical">
+                <h1>
+                    AMP for Email
+                </h1>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Allows senders to include AMP components inside emails, making modern app functionality available
+                    within email
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside; color: white;">
+                    Recipients of AMP emails can interact dynamically with content directly in the message
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    Messages still include standard HTML markup as a fallback for email clients that do not support AMP
+                </div>
+            </amp-story-grid-layer>
+        </amp-story-page>
+        <amp-story-page id=AMPStories>
+            <amp-story-grid-layer style="color: white; font-family: Arial, Helvetica, sans-serif; " template="fill">
+                <amp-img src="./AMPslides_files/ampstories.gif" width="200px" height="200px" grid-area="middle-third">
+
+                </amp-img>
+            </amp-story-grid-layer>
+            <amp-story-grid-layer
+                style="color: white; font-family: Arial, Helvetica, sans-serif; background: linear-gradient(225deg,#00dcc0f0 0,#005af0f0 95%);"
+                template="vertical">
+                <h1>
+                    AMP Stories
+                </h1>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    &#x27;mobile-focused format for delivering news and information as visually rich, tap-through
+                    stories&#x27;
+                </div>
+                <a style="display: list-item; list-style-type: disc; list-style-position: inside; color: white;"
+                    href="https://www.washingtonpost.com/graphics/2018/lifestyle/amp-stories/william-ferris-and-the-voices-of-southern-folklore/"
+                    target="_blank">
+                    Targeted towards media companies for advertisements and content delivery
+                </a>
+            </amp-story-grid-layer>
+        </amp-story-page>
+        <amp-story-page id=OtherLessons>
+            <amp-story-grid-layer style="color: white; font-family: Arial, Helvetica, sans-serif; " template="fill">
+                <amp-img src="./AMPslides_files/tokyo.gif" width="200px" height="200px" grid-area="middle-third">
+
+                </amp-img>
+            </amp-story-grid-layer>
+            <amp-story-grid-layer
+                style="color: white; font-family: Arial, Helvetica, sans-serif; background: linear-gradient(225deg,#00dcc0f0 0,#005af0f0 95%);"
+                template="vertical">
+                <h1>
+                    Other Lessons
+                </h1>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside;">
+                    AMP is but a tool in our arsenal of FE Frameworks
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside; color: white;">
+                    AMP has a two liner instant PWA
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside; color: white;">
+                    AMP development doesn&#x27;t have to be painful (in the future)
+                </div>
+                <a style="display: list-item; list-style-type: disc; list-style-position: inside; color: white;"
+                    href="https://amp.dev/" target="_blank">
+                    AMP now has decent docs
+                </a>
+            </amp-story-grid-layer>
+        </amp-story-page>
+        <amp-story-page id=OtherLessons2>
+            <amp-story-grid-layer style="color: white; font-family: Arial, Helvetica, sans-serif; " template="fill">
+                <amp-img src="./AMPslides_files/tokyo.gif" width="200px" height="200px" grid-area="middle-third">
+
+                </amp-img>
+            </amp-story-grid-layer>
+            <amp-story-grid-layer
+                style="color: white; font-family: Arial, Helvetica, sans-serif; background: linear-gradient(225deg,#00dcc0f0 0,#005af0f0 100%);"
+                template="vertical">
+                <h1>
+                    Other Lessons
+                </h1>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside; color: white;">
+                    Paired sites are most common, but there are others who have done AMP first approach (A*express)
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside; color: white;">
+                    In the advent of 5G, AMP is still a viable technology, especially in SEA
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside; color: white;">
+                    Google created AMP, but the company has convinced many other publishers and platforms to get
+                    involved with the project
+                </div>
+                <a style="display: list-item; list-style-type: disc; list-style-position: inside; color: white;"
+                    href="https://9to5google.com/2017/07/17/inclined-click-amp-link-poll/" target="_blank">
+                    AMP alone doesn&#x27;t push up your SEO score, but by nature of user habits and benefits of AMP, you
+                    can expect some improvments
+                </a>
+            </amp-story-grid-layer>
+        </amp-story-page>
+        <amp-story-page id=OtherLessons3>
+            <amp-story-grid-layer style="color: white; font-family: Arial, Helvetica, sans-serif; " template="fill">
+                <amp-img src="./AMPslides_files/tokyo.gif" width="200px" height="200px" grid-area="middle-third">
+
+                </amp-img>
+            </amp-story-grid-layer>
+            <amp-story-grid-layer
+                style="color: white; font-family: Arial, Helvetica, sans-serif; background: linear-gradient(225deg,#00dcc0f0 0,#005af0f0 100%);"
+                template="vertical">
+                <h1>
+                    Other Lessons
+                </h1>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside; color: white;">
+                    Stories are fun
+                </div>
+                <div style="display: list-item; list-style-type: disc; list-style-position: inside; color: white;">
+                    Japan is fun
+                </div>
+            </amp-story-grid-layer>
+        </amp-story-page>
+        <amp-story-page id=end>
+            <amp-story-grid-layer style="color: white; font-family: Arial, Helvetica, sans-serif; " template="fill">
+                <amp-img src="./AMPslides_files/ampconfphoto.jpg" width="200px" height="200px" grid-area="middle-third">
+
+                </amp-img>
+            </amp-story-grid-layer>
+        </amp-story-page>
+    </amp-story>
+</body>
+
+</html>
