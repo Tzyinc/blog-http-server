@@ -1,0 +1,57 @@
+<html>
+
+<head>
+    <!-- Load the latest version of TensorFlow.js -->
+    <script src="https://unpkg.com/@tensorflow/tfjs"></script>
+    <script src="https://unpkg.com/@tensorflow-models/mobilenet"></script>
+    <script src="https://unpkg.com/@tensorflow-models/knn-classifier"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Montserrat", sans-serif
+        }
+
+        .center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        button {
+            width: 100px;
+            height: 30px;
+            margin: 10px;
+        }
+
+        input {
+            width: 300px;
+            border: 1px white solid;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body class="w3-black" >
+    <div class="center">
+        <h1>mobilenet + knn transfer learning</h1>
+        <video autoplay playsinline muted id="webcam" width="224" height="224"></video>
+        <div id="console"></div>
+        <script src="index.js"></script>
+        <button id="class-a">Add 0</button>
+        <button id="class-b">Add 1</button>
+        <button id="class-c">Add 2</button>
+        <button id="save">Save net</button>
+        <input id="fileInput" type="file" name="file" />
+        <pre id="fileContent"></pre>
+    </div>
+</body>
+
+</html>
