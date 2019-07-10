@@ -30,7 +30,7 @@ async function app() {
 
   // while (true) {
   //   // do estimation here
-  //   // ctx.drawImage(webcamElement, 0, 0, 500, 500);
+  //   // ctx.drawImage(webcamElement, 0, 0, 640, 512);
   // }
 }
 
