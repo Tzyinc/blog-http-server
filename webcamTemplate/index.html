@@ -31,27 +31,19 @@
             border: 1px white solid;
             margin: 10px;
         }
-        #webcam {
-          visibility: hidden;
-          position: absolute;
-          top:0;
-        }
     </style>
   </head>
   <body class="w3-black">
     <!-- Load TensorFlow.js -->
     <script src="
 https://unpkg.com/@tensorflow/tfjs"></script>
-    <!-- Load Posenet -->
-    <script src="
-https://unpkg.com/@tensorflow-models/posenet">
+    <!-- Load whatevernethere -->
     </script>
 
     <div class="center">
-        <h1>posenet (1.5hr)</h1>
-        <canvas id="drawCanvas" width="640" height="512" style="border:1px solid #d3d3d3;" ></canvas>
+        <h1>Some title</h1>
+        <!-- <canvas id="drawCanvas" width="640" height="512" style="border:1px solid #d3d3d3;" ></canvas> -->
         <video autoplay playsinline muted id="webcam" width="640" height="512"></video>
-
     </div>
 
     <script type="text/javascript" src="index.js"></script>

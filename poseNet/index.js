@@ -39,14 +39,13 @@ async function app() {
   console.log('Sucessfully loaded model');
 
   while (true) {
-    // ctx.drawImage(webcamElement, 0, 0, canvas.width, canvas.height);
     const res = await net.estimateSinglePose(
       c,
       imageScaleFactor,
       flipHorizontal,
       outputStride,
     );
-    ctx.drawImage(webcamElement, 0, 0, 500, 500);
+    ctx.drawImage(webcamElement, 0, 0, 640, 512);
     const poses = res.keypoints;
 
     for (let i = 0; i < poses.length; i += 1) {
