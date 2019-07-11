@@ -1,0 +1,16 @@
+
+<body>
+<div style="width: 100vw; height: 100vh; position: absolute; top: 0; left: 0;"id="particle-canvas"></div>
+<script type="text/javascript" src="particle-network.min.js"></script>
+<script type="text/javascript">
+    var options = {
+        particleColor: '#fff',
+        background: '#1a252f',
+        interactive: false,
+        speed: 'fast',
+        density: 'medium'
+    };
+    var canvasDiv = document.getElementById('particle-canvas');
+    var particleCanvas = new ParticleNetwork(canvasDiv, options);
+</script>
+</body>
