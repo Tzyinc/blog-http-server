@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Speech Recording</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Montserrat", sans-serif
+        }
+    
+        .center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        #input {
+            width:100vw;
+            height:50vh;
+            border: 1px white solid;
+        }
+        #output {
+            width:100vw;
+            height:50vh;
+            border: 1px white solid;
+        }
+
+    </style>
+</head>
+
+<body  class="w3-black">
+    <div id="input"></div>
+    <div id="output"></div>
+    <script src="https://unpkg.com/compromise@latest/builds/compromise.min.js"></script>
+    <script>
+       (function () {
+           window.SpeechRecognition = (window.SpeechRecognition || window.webkitSpeechRecognition)
+           let finalTranscript = '';
+           let recognition = new window.SpeechRecognition();
+           recognition.maxAlternatives = 10;
+           recognition.continuous = false;
+           recognition.interimResults = false;
+
+           recognition.onspeechend = () => {
+               recognition.stop();
+           }
+           recognition.onend = () => {
+               recognition.start();
+           }
+
+
+           recognition.onresult = (event) => {
+               let interimTranscript ='';
+               for (let i = event.resultIndex, len = event.results.length; i < len; i++) {
+                   let transcript = event.results[i][0].transcript;
+                   interimTranscript += transcript;
+               }
+               interimTranscript += '. '
+               document.getElementById('input').innerHTML = finalTranscript + '<i style="color:#ddd;">' + interimTranscript + '</>';
+               finalTranscript += interimTranscript;
+               let doc = nlp(finalTranscript).normalize().out('text');
+               document.getElementById('output').innerHTML = doc;
+           }
+           recognition.start();
+        })();
+    </script>
+   
+</body>
+
+</html>
