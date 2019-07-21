@@ -1,12 +1,16 @@
 let outputStride = 2;
 const segmentationThreshold = 0.5;
-const maskBackground = true;
+const maskBackground = false;
 const strides = [8, 16, 32];
 
 const webcamElement = document.getElementById('webcam');
+const colorPicker = document.getElementById('jscolor');
+const rangePicker = document.getElementById('range');
 
 const c = document.getElementById('drawCanvas');
 const ctx = c.getContext('2d');
+
+let blur = 10;
 
 let maskCanvas;
 
@@ -35,7 +39,15 @@ function changeStride() {
   } else {
     outputStride--;
   }
-  document.getElementById('stride').innerHTML = `output stride: ${strides[outputStride]}`;
+  document.getElementById('stride').innerHTML = `${strides[outputStride]}`;
+}
+
+function changeColor() {
+  c.style.backgroundColor = `#${colorPicker.value}`;
+}
+
+function changeBlur() {
+  blur = rangePicker.value;
 }
 
 async function app() {
@@ -47,6 +59,8 @@ async function app() {
 
 
   document.getElementById('stride').addEventListener('click', () => changeStride());
+  colorPicker.addEventListener('change', () => changeColor());
+  rangePicker.addEventListener('change', () => changeBlur());
 
   while (true) {
     const personSegmentation = await net.estimatePersonSegmentation(
@@ -54,15 +68,30 @@ async function app() {
       strides[outputStride],
       segmentationThreshold,
     );
+    ctx.globalCompositeOperation = 'source-over';
+    // ctx.clearRect(0, 0, 640, 512);
     ctx.drawImage(webcamElement, 0, 0, 640, 512);
+
     const maskImage = bodyPix.toMaskImageData(personSegmentation, maskBackground);
+    const maskContext = maskCanvas.getContext('2d');
     // draw the mask image to an offscreen canvas.
     maskCanvas.width = maskImage.width;
     maskCanvas.height = maskImage.height;
-    const maskContext = maskCanvas.getContext('2d');
+
+    maskContext.globalCompositeOperation = 'source-over';
+    maskContext.clearRect(0, 0, maskCanvas.width, maskCanvas.height);
+
+    maskContext.beginPath();
+    maskContext.globalCompositeOperation = 'source-in';
     maskContext.putImageData(maskImage, 0, 0);
 
-    ctx.filter = 'blur(10px)';
+    maskContext.rect(0, 0, maskCanvas.width, maskCanvas.height);
+    maskContext.fillStyle = 'black'; // shouldnt matter
+    maskContext.fill();
+    maskContext.closePath();
+    ctx.filter = `blur(${blur}px)`;
+
+    ctx.globalCompositeOperation = 'destination-in';
     ctx.drawImage(maskCanvas, 0, 0);
     ctx.filter = 'blur(0px)';
   }

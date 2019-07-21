@@ -22,11 +22,11 @@
 
         button {
             height: 30px;
-            margin: 10px;
+            margin: 5px;
         }
 
         input {
-            width: 300px;
+            /* width: 300px; */
             border: 1px white solid;
             margin: 10px;
         }
@@ -36,6 +36,10 @@
           position: absolute;
           top:0;
         }
+
+        #drawCanvas {
+          background-color: #00FF00;
+        }
     </style>
   </head>
   <body class="w3-black">
@@ -44,13 +48,16 @@
     <!-- Load whatevernethere -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix">
     </script>
+    <script src="jscolor.js"></script>
 
     <div class="center">
-        <h1>body-pix (1hr)</h1>
+        <h1>body-pix</h1>
         <canvas id="drawCanvas" width="640" height="512" style="border:1px solid #d3d3d3;" ></canvas>
         <video autoplay playsinline muted id="webcam" width="640" height="512"></video>
 
-        <button id="stride">output stride: 32</button>
+        <div>output stride (accuracy): <button id="stride">32</button></div>
+        <div>color: <input id="jscolor" class="jscolor" value="00FF00"></div>
+        <div>blur: <input id="range" type="range" id="start"  value="10" name="blur" min="0" max="50"></div>
     </div>
 
     <script type="text/javascript" src="index.js"></script>
