@@ -46,12 +46,17 @@ https://unpkg.com/@tensorflow/tfjs"></script>
     <script src="
 https://unpkg.com/@tensorflow-models/posenet">
     </script>
+    <script src="https://unpkg.com/@tensorflow-models/knn-classifier"></script>
 
     <div class="center">
-        <h1>posenet</h1>
+        <h1>JOJO net</h1>
         <canvas id="drawCanvas" width="640" height="512" style="border:1px solid #d3d3d3;" ></canvas>
         <video autoplay playsinline muted id="webcam" width="640" height="512"></video>
-
+        <div>Pose name<input id='poseName' value='default'/></div>
+        <button id="add">Add pose</button>
+        <button id="save">Save net</button>
+        <input id="fileInput" type="file" name="file" />
+        <pre id="fileContent"></pre>
     </div>
 
     <script type="text/javascript" src="index.js"></script>
