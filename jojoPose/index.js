@@ -112,6 +112,8 @@ async function app() {
   // Load the model.
   const net = await posenet.load();
   await setupWebcam();
+  const firstknn = await fetchInsertKnn();
+  await loadknn(JSON.stringify(firstknn));
   console.log('Sucessfully loaded model');
 
   while (true) {
@@ -211,6 +213,14 @@ function processbw() {
   }
   // put image data back to context
   ctx.putImageData(imageData, 0, 0);
+}
+
+async function fetchInsertKnn() {
+  const url = './jojoposes.json';
+  const output = await fetch(url);
+  let data = await output.json();
+
+  return data;
 }
 
 app();
