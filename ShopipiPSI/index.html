@@ -27,6 +27,8 @@
         }
         .wrapper{
             position:relative;
+            height: 700px;
+            overflow: hidden;
         }
         #PSILabel {
             font-size: 30px;
@@ -63,20 +65,20 @@
 <body >
     <div class="wrapper">
 
+        <img src="./psishopee.jpeg" alt="ronaldo with phone" />
+        <div class="overlay">
+            <div id="PSILabel">
+                PSI
+            </div>
+            <div id='psi'>
+                load..
+            </div>
+            <div id='pm25'>
+                pm2.5: load..
+            </div>
+        </div>
+        <script src="index.js"></script>
     </div>
-    <img src="./psishopee.jpeg" alt="ronaldo with phone" />
-    <div class="overlay">
-        <div id="PSILabel">
-            PSI
-        </div>
-        <div id='psi'>
-            load..
-        </div>
-        <div id='pm25'>
-            pm2.5: load..
-        </div>
-    </div>
-    <script src="index.js"></script>
 </body>
 
 </html>
