@@ -8,7 +8,7 @@ function getPSI() {
     // pm2.5 Chart1HRPM25
     // psi ChartPM25
     const now = parseInt((+new Date()) / 1000, 10);
-    fetch(`http://tenzhiyang.com:9909/psi`,
+    fetch(`https://tenzhiyang.com:9909/psi`,
         {
             "method": "GET",
             "mode": "cors"
