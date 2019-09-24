@@ -20,9 +20,7 @@ var circleX = 0;
 var circleY = 0;
 
 function showHTML() {
-
     initCanvas();
-    draw();
 }
 
 function initCanvas() {
@@ -34,9 +32,32 @@ function initCanvas() {
     canvas.onmousedown = onmousedown;
     canvas.onmouseup = onmouseup;
     canvas.onmousemove = onmousemove;
-    canvas.ontouchstart = onmousedown;
-    canvas.ontouchend = onmouseup;
-    canvas.ontouchmove = onmousemove;
+
+    // Set up touch events for mobile, etc
+    canvas.addEventListener("touchstart", function (e) {
+        mousePos = getTouchPos(canvas, e);
+        var touch = e.touches[0];
+        var mouseEvent = new MouseEvent("mousedown", {
+            clientX: touch.clientX,
+            clientY: touch.clientY
+        });
+        canvas.dispatchEvent(mouseEvent);
+    }, false);
+    canvas.addEventListener("touchend", function (e) {
+        var mouseEvent = new MouseEvent("mouseup", {});
+        canvas.dispatchEvent(mouseEvent);
+    }, false);
+    canvas.addEventListener("touchmove", function (e) {
+        var touch = e.touches[0];
+        var mouseEvent = new MouseEvent("mousemove", {
+            clientX: touch.clientX,
+            clientY: touch.clientY
+        });
+        canvas.dispatchEvent(mouseEvent);
+    }, false);
+    // canvas.ontouchstart = onmousedown;
+    // canvas.ontouchend = onmouseup;
+    // canvas.ontouchmove = onmousemove;
     
     bounds = canvas.getBoundingClientRect();
     ctx = canvas.getContext("2d");
@@ -44,7 +65,8 @@ function initCanvas() {
 
     circleX = canvas.offsetWidth / 2;
     circleY = canvas.offsetHeight / 2;
-    
+
+    draw();
 }
 
 function drawBoxAtSpawn() {
@@ -70,36 +92,38 @@ function createPlane(x, z, width, angleDeg) {
 }
 
 function draw() {
-    ctx.fillStyle = "#c5c5c5";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    ctx.strokeStyle = "black";
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-
-    for (var i = 0; i < existingLines.length; ++i) {
-        var line = existingLines[i];
-        ctx.moveTo(line.startX, line.startY);
-        ctx.lineTo(line.endX, line.endY);
-    }
-
-    ctx.stroke();
-
-    if (isDrawing) {
-        ctx.strokeStyle = "darkred";
-        ctx.lineWidth = 3;
+    if (canvas) {
+        ctx.fillStyle = "#c5c5c5";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.moveTo(startX, startY);
-        ctx.lineTo(mouseX, mouseY);
+    
+        for (var i = 0; i < existingLines.length; ++i) {
+            var line = existingLines[i];
+            ctx.moveTo(line.startX, line.startY);
+            ctx.lineTo(line.endX, line.endY);
+        }
+    
         ctx.stroke();
+    
+        if (isDrawing) {
+            ctx.strokeStyle = "darkred";
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+            ctx.lineTo(mouseX, mouseY);
+            ctx.stroke();
+        }
+    
+        ctx.strokeStyle = "green";
+        ctx.beginPath();
+        ctx.arc(circleX, circleY, 5, 0 * Math.PI, 2 * Math.PI);
+        ctx.stroke();
+    
+        radiantLine(20, 1, 'purple');
     }
-
-    ctx.strokeStyle = "green";
-    ctx.beginPath();
-    ctx.arc(circleX, circleY, 5, 0 * Math.PI, 2 * Math.PI);
-    ctx.stroke();
-
-    radiantLine(20, 1, 'purple');
 }
 
 function onmousedown(e) {
@@ -151,6 +175,15 @@ function onmouseup(e) {
     }
 }
 
+// Get the position of a touch relative to the canvas
+function getTouchPos(canvasDom, touchEvent) {
+    var rect = canvasDom.getBoundingClientRect();
+    return {
+        x: touchEvent.touches[0].clientX - rect.left,
+        y: touchEvent.touches[0].clientY - rect.top
+    };
+}
+
 function getAngle(cx, cy, ex, ey) {
     var dy = ey - cy;
     var dx = ex - cx;
@@ -195,8 +228,11 @@ AFRAME.registerComponent('rotation-reader', {
         radLine = (-(this.el.object3D.rotation._y + (Math.PI/2)))%(Math.PI*2)
         camposX = this.el.object3D.position.x
         camposZ = this.el.object3D.position.z
-        circleX = canvas.offsetWidth / 2 + (camposX * factor);
-        circleY = canvas.offsetHeight / 2 + (camposZ *factor);
+        if (canvas) {
+            
+            circleX = canvas.offsetWidth / 2 + (camposX * factor);
+            circleY = canvas.offsetHeight / 2 + (camposZ *factor);
+        }
         draw();
         // `position` is a three.js Vector3.\
     }
