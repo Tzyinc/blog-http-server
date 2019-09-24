@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta property="og:title" content="ShopipiPSI">
+    <meta property="og:description" content="Ronaldo the PSI checker">
+    <meta property="og:image" content="https://httpserve.tenzhiyang.com/ShopipiPSI/psishopee.jpeg">
+    <meta property="og:url" content="https://httpserve.tenzhiyang.com/ShopipiPSI">
+    <meta name="twitter:card" content="summary_large_image">
+    <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+    <style>
+        @media screen and (orientation:portrait) {
+            body {
+                padding:0;
+                margin:0;
+                display: flex;
+                flex-direction: column;
+                width: 100vw;
+                height: 100vh;
+            }
+            .other-half{
+                height: 100%;
+                width: 50%;
+
+            }
+            .half{
+                width: 100%;
+                height: 50%;
+            }
+        }
+        @media screen and (orientation:landscape) {
+            body {
+                padding:0;
+                margin:0;
+                display: flex;
+                flex-direction: row;
+                width: 100vw;
+                height: 100vh;
+            }
+            .other-half {
+                width: 100%;
+                height: 50%;
+
+            }
+            .half{
+                height: 100%;
+                width: 50%;
+            }
+        }
+        button{
+            width: 33.33%;
+            height:100%;
+        }
+        .arrows{
+            display: flex;
+            flex-direction: column;
+        }
+        .top {
+            display: flex;
+            justify-content:  center;
+            height: 33.33%;
+        }
+        .lr {
+            display: flex;
+            justify-content:  space-between;
+            height: 33.33%;
+
+        }
+        .bot{
+            display: flex;
+            justify-content: center;
+            height: 33.33%;
+
+        }
+    </style>
+    <script src="index.js"></script>
+</head>
+
+<body onload="showHTML()">
+    <div class="half">
+        <div class="other-half">
+            <canvas id="canvas">
+            </canvas>
+        </div>
+        <div class="other-half arrows">
+            <div class="top">
+                <button onclick="clickedUp()"> ▲ </button>
+            </div>
+            <div class="lr">
+                    <button onclick="clickedLeft()"> ◀ </button>
+                <button onclick="clickedRight()"> ▶ </button>
+            </div>
+            <div class="bot">
+                <button onclick="clickedDown()"> ▼ </button>
+            </div>
+        </div>
+    </div>
+    <div class="half">
+        <a-scene id="scene" embedded>
+            <!-- <a-entity camera="active: true" look-controls wasd-controls position="0 1.5 0" rotation-reader></a-entity> -->
+            <a-entity id="cament" look-controls wasd-controls position="0 0 0" rotation-reader>
+                <a-camera>
+                </a-camera>
+            </a-entity>
+        </a-scene>
+    </div>
+
+</body>
+</html>
