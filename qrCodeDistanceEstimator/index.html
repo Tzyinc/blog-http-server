@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>QR code distance scanner</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta property="og:title" content="QR code distance scanner">
+    <meta property="og:description" content="distance estimation based on qr code and webcam feed">
+    <!-- <meta property="og:image" content="https://imthebestcoder.ml/bestcoder.png">
+    <meta property="og:url" content="https://regist.imthebestcoder.ml/">
+    <meta name="twitter:card" content="summary_large_image"> -->
+    <script src="jsQR.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div>Distance of: <span id="distanceToMark">0</span>cm</div>
+    <button onclick='markIndex()' id='ratioMarker'>Callibrate</button>
+    <canvas id="canvas" hidden></canvas>
+    <div id="output" hidden>
+        <div id="outputMessage">No QR code detected.</div>
+        <div hidden><b>Data:</b> <span id="outputData"></span></div>
+    </div>
+    <script type="text/javascript" src="index.js"></script>
+</body>
+
+</html>
