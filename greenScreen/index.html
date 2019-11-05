@@ -40,6 +40,37 @@
         #drawCanvas {
           background-color: #00FF00;
         }
+
+        .slider {
+          -webkit-appearance: none;
+          width: 100%;
+          height: 25px;
+          background: #d3d3d3;
+          outline: none;
+          opacity: 0.7;
+          -webkit-transition: .2s;
+          transition: opacity .2s;
+        }
+
+        .slider:hover {
+          opacity: 1;
+        }
+
+        .slider::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 25px;
+          height: 25px;
+          background: #4CAF50;
+          cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+          width: 25px;
+          height: 25px;
+          background: #4CAF50;
+          cursor: pointer;
+        }
     </style>
   </head>
   <body class="w3-black">
@@ -55,9 +86,21 @@
         <canvas id="drawCanvas" width="640" height="512" style="border:1px solid #d3d3d3;" ></canvas>
         <video autoplay playsinline muted id="webcam" width="640" height="512"></video>
 
-        <div>output stride (accuracy): <button id="stride">32</button></div>
+        <div>output stride (lower = more acc): <button id="stride">32</button></div>
+        <div class="center">
+          <div>segmentation threshold (lower = looser crop)</div>
+          <div><input type="range" min="0" max="1000" value="750" class="slider" id="segmentationThreshold"></div>
+          <div id="segtreshval">0.75</div>
+        </div>
         <div>color: <input id="jscolor" class="jscolor" value="00FF00"></div>
-        <div>blur: <input id="range" type="range" id="start"  value="10" name="blur" min="0" max="50"></div>
+        <div class="center">
+          <div>
+            blur
+          </div>
+          <div>
+            <input id="range"  class="slider" type="range" id="start"  value="8" name="blur" min="0" max="50">
+          </div>
+      </div>
     </div>
 
     <script type="text/javascript" src="index.js"></script>

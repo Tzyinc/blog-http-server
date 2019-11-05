@@ -1,5 +1,5 @@
 let outputStride = 2;
-const segmentationThreshold = 0.5;
+let segmentationThreshold = 0.75;
 const maskBackground = false;
 const strides = [8, 16, 32];
 
@@ -10,7 +10,7 @@ const rangePicker = document.getElementById('range');
 const c = document.getElementById('drawCanvas');
 const ctx = c.getContext('2d');
 
-let blur = 10;
+let blur = 8;
 
 let maskCanvas;
 
@@ -42,6 +42,13 @@ function changeStride() {
   document.getElementById('stride').innerHTML = `${strides[outputStride]}`;
 }
 
+function changeSegmentationThreshold() {
+  let slider = document.getElementById('segmentationThreshold');
+  let value = slider.value / 1000;
+  segmentationThreshold = value;
+  document.getElementById('segtreshval').innerHTML = value;
+}
+
 function changeColor() {
   c.style.backgroundColor = `#${colorPicker.value}`;
 }
@@ -59,6 +66,7 @@ async function app() {
 
 
   document.getElementById('stride').addEventListener('click', () => changeStride());
+  document.getElementById('segmentationThreshold').addEventListener('change', () => changeSegmentationThreshold());
   colorPicker.addEventListener('change', () => changeColor());
   rangePicker.addEventListener('change', () => changeBlur());
 
