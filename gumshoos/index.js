@@ -7,8 +7,18 @@ function createTokens() {
     var nlp_text = nlp.text(trump_speeches);
     var terms = nlp_text.terms();
     for (var i = 0; i < terms.length; i++) {
-        tokens.push(terms[i].text);
+        var text = terms[i].text;
+        tokens.push(text.toLowerCase());
     }
+    download(JSON.stringify(tokens), 'tokens.txt', 'application/json' )
+}
+
+function download(content, fileName, contentType) {
+    var a = document.createElement("a");
+    var file = new Blob([content], { type: contentType });
+    a.href = URL.createObjectURL(file);
+    a.download = fileName;
+    a.click();
 }
 
 
@@ -60,17 +70,23 @@ function generate(len, gramlen) {
 
 
 function start() {
-    const url = './speeches.txt';
+    // const url = './speeches.txt';
+    const url = './tokens.json';
     const GRAM_LEN = 2;
     const OUT_MIN_LEN = 20;
     fetch(url)
         .then(function (resp) {
             console.log('loading');
-            resp.text().then(speech => {
-                trump_speeches = speech;
-                createTokens();
+            // to train and save the training data
+            // resp.text().then(speech => {
+            //     trump_speeches = speech;
+            //     createTokens();
+            //     generate(OUT_MIN_LEN, GRAM_LEN);
+            //     console.log(`loaded, length ${OUT_MIN_LEN}, ${GRAM_LEN}-gram`);
+            // })
+            resp.json().then(tokenData => {
+                tokens = tokenData;
                 generate(OUT_MIN_LEN, GRAM_LEN);
-                console.log(`loaded, length ${OUT_MIN_LEN}, ${GRAM_LEN}-gram`);
             })
             document.getElementById("generate").addEventListener("click", () => generate(OUT_MIN_LEN, GRAM_LEN));
         })
