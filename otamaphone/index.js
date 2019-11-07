@@ -116,6 +116,7 @@ const scaleHeight = (num) => {
     const scaleMap = (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     // every octave is *2
     // using root note as 440hz
-
-    return 440 * Math.pow(1.059463094359, scaleMap);
+    const hertz = 440 * Math.pow(1.059463094359, scaleMap);
+    console.log(scaleMap, hertz, num, screen)
+    return hertz ;
 }
