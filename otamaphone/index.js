@@ -43,19 +43,6 @@ mydiv.addEventListener('touchmove', function (e) {
     // stop touch event
     e.stopPropagation();
     e.preventDefault();
-
-    // translate to mouse event
-
-    if (e && e.touches && e.touches[0]) {
-        // var clkEvt = document.createEvent('MouseEvent');
-        // clkEvt.initMouseEvent('mousemove', true, true, window, e.detail,
-        //     e.touches[0].screenX, e.touches[0].screenY,
-        //     e.touches[0].clientX, e.touches[0].clientY,
-        //     false, false, false, false,
-        //     0, null);
-        // mydiv.dispatchEvent(clkEvt);
-    }
-
     // or just handle touch event
     moveHandler(e);
 }, false);
@@ -67,16 +54,6 @@ mydiv.addEventListener('touchstart', function (e) {
     e.preventDefault();
 
     // translate to mouse event
-
-    if (e && e.touches && e.touches[0]) {
-        // var clkEvt = document.createEvent('MouseEvent');
-        // clkEvt.initMouseEvent('mousedown', true, true, window, e.detail,
-        //     e.touches[0].screenX, e.touches[0].screenY,
-        //     e.touches[0].clientX, e.touches[0].clientY,
-        //     false, false, false, false,
-        //     0, null);
-        // mydiv.dispatchEvent(clkEvt);
-    }
 
     // or just handle touch event
     downHandler(e);
@@ -90,16 +67,6 @@ mydiv.addEventListener('touchend', function (e) {
     e.preventDefault();
 
     // translate to mouse event
-    if (e && e.touches && e.touches[0]) {
-        // var clkEvt = document.createEvent('MouseEvent');
-
-        // clkEvt.initMouseEvent('mouseleave', true, true, window, e.detail,
-        //     e.touches[0].screenX, e.touches[0].screenY,
-        //     e.touches[0].clientX, e.touches[0].clientY,
-        //     false, false, false, false,
-        //     0, null);
-        // mydiv.dispatchEvent(clkEvt);
-    }
 
     // or just handle touch event
     upHandler(e);
@@ -117,12 +84,14 @@ function moveHandler(e) {
 }
 
 function downHandler(e) {
+    if (!isDown) {
+        clientY = e.clientY || e && e.targetTouches && e.targetTouches[0] && e.targetTouches[0].clientY;
+        setNote(scaleHeight(clientY));
+        playNote();
+        otaClose.style.display = "none";
+        otaOpen.style.display = "block";
+    }
     isDown = true;
-    clientY = e.clientY || e && e.targetTouches && e.targetTouches[0] && e.targetTouches[0].clientY;
-    setNote(scaleHeight(clientY));
-    playNote();
-    otaClose.style.display = "none";
-    otaOpen.style.display = "block";
     // console.log(`${freq}hz`)
 }
 
