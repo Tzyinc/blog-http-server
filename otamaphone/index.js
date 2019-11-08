@@ -24,7 +24,9 @@ function playNote() {
 function setNote(newFreq) {
     freq = newFreq;
     if (isPlaying) {
-        o.frequency.value = newFreq;
+        o.frequency.setValueAtTime(freq, context.currentTime);
+
+        console.log(o.frequency);
     }
 }
 function setGain(value) {
@@ -83,6 +85,7 @@ function moveHandler(e) {
     if (isDown) {
         // availWidth: 1680, availHeight: 948
         clientY = e.clientY || e && e.targetTouches && e.targetTouches[0] && e.targetTouches[0].clientY;
+        console.log('movvv', clientY);
         clientX = e.clientX || e && e.targetTouches && e.targetTouches[0] && e.targetTouches[0].clientX;
         setNote(scaleHeight(clientY));
         const piVal = (clientX) * (Math.PI) / (screen.availWidth);
