@@ -209,7 +209,7 @@ const scaleHeight = (
         out_min = 0,
         out_max = 24, // semitones in 2 octaves
         in_min = 0,
-        in_max = window.innerHeight
+        in_max = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) //viewport height
     ) => {
     console.log('scaleHeight', num, in_max, screen)
     // cant be linear as hz are not lineraly scaling
