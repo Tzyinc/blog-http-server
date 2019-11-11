@@ -209,8 +209,9 @@ const scaleHeight = (
         out_min = 0,
         out_max = 24, // semitones in 2 octaves
         in_min = 0,
-        in_max = screen.availHeight
+        in_max = window.innerHeight
     ) => {
+    console.log('scaleHeight', num, in_max, screen)
     // cant be linear as hz are not lineraly scaling
     const scaleMap = (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     // every octave is *2
