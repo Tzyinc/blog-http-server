@@ -18,7 +18,7 @@ let otaOpen = document.getElementById('otaOpen');
 let firstFreqOff = undefined;
 
 function playNote() {
-    context = new (window.AudioContext || window.webkitAudioContext)();
+    // context = new (window.AudioContext || window.webkitAudioContext)();
     o = context.createOscillator();
     g = context.createGain();
 
@@ -60,7 +60,6 @@ function setNote(newFreq) {
     if (isPlaying) {
         // console.log(freq, firstFreqOff);
         o.frequency.setValueAtTime(freq, context.currentTime);
-
     }
 }
 function setGain(value) {
@@ -74,9 +73,9 @@ function stopNote() {
         0.00001, context.currentTime + 0.04
     );
     firstFreqOff = undefined;
-    // setTimeout(function () {
-    //     g.disconnect(context.destination);
-    // }, 50);
+    setTimeout(function () {
+        o.stop();
+    }, 50);
 }
 
 
@@ -212,7 +211,7 @@ const scaleHeight = (
         in_min = 0,
         in_max = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) //viewport height
     ) => {
-    console.log('scaleHeight', num, in_max, screen)
+    // console.log('scaleHeight', num, in_max, screen)
     // cant be linear as hz are not lineraly scaling
     const scaleMap = (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     // every octave is *2
