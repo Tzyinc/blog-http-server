@@ -18,7 +18,6 @@ let otaOpen = document.getElementById('otaOpen');
 let firstFreqOff = undefined;
 
 function playNote() {
-    // context = new (window.AudioContext || window.webkitAudioContext)();
     o = context.createOscillator();
     g = context.createGain();
 
@@ -75,7 +74,7 @@ function stopNote() {
     firstFreqOff = undefined;
     setTimeout(function () {
         o.stop();
-    }, 50);
+    }, 41);
 }
 
 
