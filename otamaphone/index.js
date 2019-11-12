@@ -18,6 +18,7 @@ let otaOpen = document.getElementById('otaOpen');
 let firstFreqOff = undefined;
 
 function playNote() {
+    context = new (window.AudioContext || window.webkitAudioContext)();
     o = context.createOscillator();
     g = context.createGain();
 
@@ -48,7 +49,7 @@ function setFirst(newFreq) {
         } else {
             freq = newFreq - firstFreqOff
         }
-        console.log(freq, firstFreqOff);
+        // console.log(freq, firstFreqOff);
     } else {
         freq = newFreq;
     }
