@@ -126,6 +126,16 @@
         .defaultOpen{
             display: none;
         }
+
+        .noselect {
+            -webkit-touch-callout: none; /* iOS Safari */
+                -webkit-user-select: none; /* Safari */
+                -khtml-user-select: none; /* Konqueror HTML */
+                -moz-user-select: none; /* Old versions of Firefox */
+                    -ms-user-select: none; /* Internet Explorer/Edge */
+                        user-select: none; /* Non-prefixed version, currently
+                                            supported by Chrome, Opera and Firefox */
+            }
     </style>
 </head>
 
@@ -142,6 +152,7 @@
                 <input type="radio" id="wave1" value="square" name="wave" class="w3-radio">Square<br />
                 <input type="radio" id="wave2" value="sawtooth" name="wave" class="w3-radio">Sawtooth<br />
                 <input type="radio" id="wave3" value="triangle" name="wave" class="w3-radio">Triangle<br />
+                <input type="radio" id="wave3" value="custom" name="wave" class="w3-radio">Custom<br />
             </div>
             <div>
                 <h2>Pitch Correction</h2>
@@ -151,8 +162,8 @@
             </div>
         </div>
     </div>
-    <img class="otaPos defaultClose" id="otaClose" src="./otaclose.png" />
-    <img class="otaPos defaultOpen" id="otaOpen" src="./otaopen.png" />
+    <img class="otaPos defaultClose noselect" id="otaClose" src="./otaclose.png" />
+    <img class="otaPos defaultOpen noselect" id="otaOpen" src="./otaopen.png" />
     <script src="index.js"></script>
 </body>
 
