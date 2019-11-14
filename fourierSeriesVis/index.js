@@ -1,13 +1,63 @@
 let canvas = document.getElementById("wave");
 var ctx = canvas.getContext("2d");
 
-const real = [0, 1];
-const imag = [0, 0];
+let real = [0, 1];
+let imag = [0, 0];
 
 let o;
 let g;
 
-let freq = 440;
+let freq = 220;
+
+let json;
+
+document.getElementById('fileReader').addEventListener('change', handleFileSelect, false);
+
+function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+
+    // files is a FileList of File objects. List some properties.
+    var output = [];
+    for (var i = 0, f; f = files[i]; i++) {
+        var reader = new FileReader();
+
+        // Closure to capture the file information.
+        reader.onload = (function (theFile) {
+            return function (e) {
+                    json = JSON.parse(e.target.result);
+                    // console.log(json);
+                    clearFourier();
+                    real = json.real;
+                    while (real[real.length - 1] === 0) {
+                        real.pop();
+                    }
+                    imag = json.imag;
+
+                    while (imag[imag.length - 1] === 0) {
+                        imag.pop();
+                    }
+
+                    while (real.length < imag.length) {
+                        real.push(0)
+                    }
+
+                    while (imag.length < real.length) {
+                        imag.push(0)
+                    }
+
+                    console.log(real, imag);
+
+                    draw();
+                    // alert('json global var has been set to parsed json of this file here it is unevaled = \n' + JSON.stringify(json));
+                } catch (ex) {
+                    alert('ex when trying to parse json = ' + ex);
+                }
+            }
+        })(f);
+        reader.readAsText(f);
+    }
+
+}
 
 function playNote() {
     let context = new (window.AudioContext || window.webkitAudioContext)();
@@ -31,15 +81,27 @@ function calculateChange() {
         const realDiv = document.getElementById(`divreal${i}`);
         const imagRange = document.getElementById(`imag${i}`);
         const imagDiv = document.getElementById(`divimag${i}`);
-        real[i + 1] = Number(realRange.value);
-        imag[i + 1] = Number(imagRange.value);
-        realDiv.innerHTML = realRange.value;
-        imagDiv.innerHTML = imagRange.value;
+        if (realRange && realDiv && imagRange && imagDiv) {
+            real[i + 1] = Number(realRange.value);
+            imag[i + 1] = Number(imagRange.value);
+            realDiv.innerHTML = realRange.value;
+            imagDiv.innerHTML = imagRange.value;
+        }
     }
     draw();
 }
 
-function addFourier() {
+function clearFourier() {
+    real = [0];
+    imag = [0];
+    const sliderNode = document.getElementById("rangeSliders");
+    while (sliderNode.firstChild) {
+        sliderNode.removeChild(sliderNode.firstChild);
+    }
+}
+
+function addFourier(realVal, imagVal) {
+    console.log('adding coef')
     const indexToAdd = real.length - 1;
     const sliderSection = document.getElementById("rangeSliders");
     const divSect = document.createElement("div");
@@ -48,10 +110,10 @@ function addFourier() {
     divDoubleDiv.className = "double";
     const divReal = document.createElement("div");
     divReal.id = `divreal${indexToAdd}`;
-    divReal.innerHTML = 1;
+    divReal.innerHTML = realVal || 1;
     const divImag = document.createElement("div");
     divImag.id = `divimag${indexToAdd}`;
-    divImag.innerHTML = 0;
+    divImag.innerHTML = imagVal || 0;
 
     const divDoubleRange = document.createElement("div");
     divDoubleDiv.className = "double";
@@ -59,21 +121,21 @@ function addFourier() {
     rangeReal.onchange = calculateChange;
     rangeReal.id = `real${indexToAdd}`;
     rangeReal.type = "range";
-    rangeReal.min = 0;
+    rangeReal.min = -1;
     rangeReal.max = 1;
-    rangeReal.value = 1;
+    rangeReal.value = realVal || 1;
     rangeReal.step = 0.01;
     const rangeImag = document.createElement("input");
     rangeImag.onchange = calculateChange;
     rangeImag.id = `imag${indexToAdd}`;
     rangeImag.type = "range";
-    rangeImag.min = 0;
+    rangeImag.min = -1;
     rangeImag.max = 1;
-    rangeImag.value = 0;
+    rangeImag.value = imagVal || 0;
     rangeImag.step = 0.01;
 
-    real.push(1);
-    imag.push(0);
+    real.push(realVal || 1);
+    imag.push(imagVal || 0);
 
     // < input onchange = "calculateChange()" id = "real0" type = "range" min = "0" max = "1" value = "1" step = "0.01" />
     

@@ -49,6 +49,7 @@
 </head>
 
 <body class="w3-black center lines">
+    <input type="file" id="fileReader" />
     <button onclick="playNote()">play</button>
     <canvas id="wave" width="200px" height="100px"></canvas>
     <div id="rangeSliders">
@@ -64,8 +65,8 @@
                 <div id="divimag0">0</div>
             </div>
             <div class="double">
-                <input onchange="calculateChange()" id="real0" type="range" min="0" max="1" value="1" step="0.01" />
-                <input onchange="calculateChange()" id="imag0" type="range" min="0" max="1" value="0" step="0.01" />
+                <input onchange="calculateChange()" id="real0" type="range" min="-1" max="1" value="1" step="0.01" />
+                <input onchange="calculateChange()" id="imag0" type="range" min="-1" max="1" value="0" step="0.01" />
             </div>
         </div>
     </div>

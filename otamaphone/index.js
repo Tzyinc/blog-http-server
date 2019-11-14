@@ -26,7 +26,6 @@ function playNote() {
     o.connect(g);
     g.connect(context.destination);
     o.start(0);
-    // console.log(freq, firstFreqOff, o.frequency);
     o.frequency.setValueAtTime(freq, context.currentTime);
     isPlaying = true;
 }
@@ -61,6 +60,7 @@ function setNote(newFreq) {
         o.frequency.setValueAtTime(freq, context.currentTime);
     }
 }
+
 function setGain(value) {
     if (isPlaying) {
         // g.gain.value = value;
@@ -74,6 +74,7 @@ function stopNote() {
     firstFreqOff = undefined;
     setTimeout(function () {
         o.stop();
+        isPlaying = false;
     }, 41);
 }
 
