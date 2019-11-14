@@ -24,6 +24,7 @@ function handleFileSelect(evt) {
         // Closure to capture the file information.
         reader.onload = (function (theFile) {
             return function (e) {
+                try {
                     json = JSON.parse(e.target.result);
                     // console.log(json);
                     clearFourier();
