@@ -61,11 +61,12 @@ function handleFileSelect(evt) {
 }
 
 function playNote() {
+    console.log(real, imag)
     let context = new (window.AudioContext || window.webkitAudioContext)();
     o = context.createOscillator();
     g = context.createGain();
 
-    let wave = context.createPeriodicWave(real, imag, { disableNormalization: true });
+    let wave = context.createPeriodicWave(real, imag, { disableNormalization: false });
     o.setPeriodicWave(wave);
     // o.type = "custom"; // sine, square, sawtooth, triangle
     o.connect(g);

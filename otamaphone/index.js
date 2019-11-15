@@ -22,7 +22,13 @@ function playNote() {
     g = context.createGain();
 
     const selectedWave = document.querySelector('input[name="wave"]:checked').value;
-    o.type = selectedWave; // sine, square, sawtooth, triangle
+    if (selectedWave === 'otamatone') {
+        // [0, -1, -1, -1, -1, -1][0, 0.93, 0.82, 0.63, 0.36, 0.14]
+        let wave = context.createPeriodicWave([0, -1, -1, -1, -1, -1], [0, 0.93, 0.82, 0.63, 0.36, 0.14], { disableNormalization: false });
+        o.setPeriodicWave(wave);
+    } else {
+        o.type = selectedWave; // sine, square, sawtooth, triangle
+    }
     o.connect(g);
     g.connect(context.destination);
     o.start(0);
