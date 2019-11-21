@@ -7,7 +7,7 @@ let isDown = false;
 let isPlaying = false;
 let ROOT_NOTE = 440;
 const SEMITONES_COUNT = 24;
-const SUBSEQUENT_NOTES = [];
+let SUBSEQUENT_NOTES = [];
 for (let i =0; i<SEMITONES_COUNT; i++) {
     SUBSEQUENT_NOTES.push(ROOT_NOTE * Math.pow(1.059463094359, i));
 }
@@ -27,7 +27,11 @@ document.getElementById('fileReader').addEventListener('change', handleFileSelec
 
 function calculateChange() {
     const sliderValue = document.getElementById('slider0').value;
-    ROOT_NOTE = 110*Math.pow(4, sliderValue);
+    ROOT_NOTE = 110 * Math.pow(4, sliderValue);
+    SUBSEQUENT_NOTES = [];
+    for (let i = 0; i < SEMITONES_COUNT; i++) {
+        SUBSEQUENT_NOTES.push(ROOT_NOTE * Math.pow(1.059463094359, i));
+    }
 }
 
 function handleFileSelect(evt) {
@@ -80,8 +84,6 @@ function playNote() {
         let wave = context.createPeriodicWave(real, imag, { disableNormalization: false });
         o.setPeriodicWave(wave);
     } else if (selectedWave === 'custom') {
-        const real = new Float32Array([0, -1, -1, -1, -1, -1]);
-        const imag = new Float32Array([0, 0.93, 0.82, 0.63, 0.36, 0.14]);
         let wave = context.createPeriodicWave(real, imag, { disableNormalization: false });
         o.setPeriodicWave(wave);
     }else {
