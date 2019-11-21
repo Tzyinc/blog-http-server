@@ -26,29 +26,8 @@ function handleFileSelect(evt) {
             return function (e) {
                 try {
                     json = JSON.parse(e.target.result);
-                    // console.log(json);
-                    clearFourier();
-                    real = json.real;
-                    while (real[real.length - 1] === 0) {
-                        real.pop();
-                    }
-                    imag = json.imag;
+                    applyFileData(json)
 
-                    while (imag[imag.length - 1] === 0) {
-                        imag.pop();
-                    }
-
-                    while (real.length < imag.length) {
-                        real.push(0)
-                    }
-
-                    while (imag.length < real.length) {
-                        imag.push(0)
-                    }
-
-                    console.log(real, imag);
-
-                    draw();
                     // alert('json global var has been set to parsed json of this file here it is unevaled = \n' + JSON.stringify(json));
                 } catch (ex) {
                     alert('ex when trying to parse json = ' + ex);
@@ -60,13 +39,58 @@ function handleFileSelect(evt) {
 
 }
 
+function applyFileData(json) {
+    // console.log(json);
+    clearFourier();
+    real = json.real;
+    while (real[real.length - 1] === 0) {
+        real.pop();
+    }
+    imag = json.imag;
+
+    while (imag[imag.length - 1] === 0) {
+        imag.pop();
+    }
+
+    while (real.length < imag.length) {
+        real.push(0)
+    }
+
+    while (imag.length < real.length) {
+        imag.push(0)
+    }
+
+    console.log(real, imag);
+
+    draw();
+}
+
+
+function saveWave() {
+    let saveData = { real, imag };
+    let fileName = window.prompt("Enter filename", "custInstrument");
+    if (fileName) {
+        downloadObjectAsJson(saveData, fileName);
+    }
+}
+
+function downloadObjectAsJson(exportObj, exportName) {
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
+    var downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", exportName + ".json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+}
+
 function playNote() {
     console.log(real, imag)
     let context = new (window.AudioContext || window.webkitAudioContext)();
     o = context.createOscillator();
     g = context.createGain();
 
-    let wave = context.createPeriodicWave(real, imag, { disableNormalization: false });
+    let wave = context.createPeriodicWave(new Float32Array(real), new Float32Array(imag), { disableNormalization: false });
     o.setPeriodicWave(wave);
     // o.type = "custom"; // sine, square, sawtooth, triangle
     o.connect(g);

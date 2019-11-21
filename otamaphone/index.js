@@ -5,7 +5,7 @@ let g;
 let freq = 440;
 let isDown = false;
 let isPlaying = false;
-const ROOT_NOTE = 440;
+let ROOT_NOTE = 440;
 const SEMITONES_COUNT = 24;
 const SUBSEQUENT_NOTES = [];
 for (let i =0; i<SEMITONES_COUNT; i++) {
@@ -15,7 +15,59 @@ for (let i =0; i<SEMITONES_COUNT; i++) {
 
 let otaClose = document.getElementById('otaClose');
 let otaOpen = document.getElementById('otaOpen');
+
+let uploadSection = document.getElementById('uploadSection');
+
 let firstFreqOff = undefined;
+
+let real = new Float32Array([0, -1, -1, -1, -1, -1]);
+let imag = new Float32Array([0, 0.93, 0.82, 0.63, 0.36, 0.14]);
+
+document.getElementById('fileReader').addEventListener('change', handleFileSelect, false);
+
+function calculateChange() {
+    const sliderValue = document.getElementById('slider0').value;
+    ROOT_NOTE = 110*Math.pow(4, sliderValue);
+}
+
+function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+
+    // files is a FileList of File objects. List some properties.
+    var output = [];
+    for (var i = 0, f; f = files[i]; i++) {
+        var reader = new FileReader();
+
+        // Closure to capture the file information.
+        reader.onload = (function (theFile) {
+            return function (e) {
+                try {
+                    const json = JSON.parse(e.target.result);
+                    if (Array.isArray(json.real) && Array.isArray(json.imag) && json.real.length === json.imag.length) {
+                        real = new Float32Array(json.real);
+                        imag = new Float32Array(json.imag);
+                    } else {
+                        throw 'file uploaded is not of correct format';
+                    }
+
+                    // alert('json global var has been set to parsed json of this file here it is unevaled = \n' + JSON.stringify(json));
+                } catch (ex) {
+                    alert('ex when trying to parse json: ' + ex);
+                }
+            }
+        })(f);
+        reader.readAsText(f);
+    }
+}
+
+function customClicked() {
+    let radiocustom = document.getElementById('wave5');
+    if (radiocustom.checked) {
+        uploadSection.style.display = "block";
+    } else {
+        uploadSection.style.display = "none";
+    }
+}
 
 function playNote() {
     o = context.createOscillator();
@@ -23,10 +75,16 @@ function playNote() {
 
     const selectedWave = document.querySelector('input[name="wave"]:checked').value;
     if (selectedWave === 'otamatone') {
-        // [0, -1, -1, -1, -1, -1][0, 0.93, 0.82, 0.63, 0.36, 0.14]
-        let wave = context.createPeriodicWave([0, -1, -1, -1, -1, -1], [0, 0.93, 0.82, 0.63, 0.36, 0.14], { disableNormalization: false });
+        real = new Float32Array([0, -1, -1, -1, -1, -1]);
+        imag = new Float32Array([0, 0.93, 0.82, 0.63, 0.36, 0.14]);
+        let wave = context.createPeriodicWave(real, imag, { disableNormalization: false });
         o.setPeriodicWave(wave);
-    } else {
+    } else if (selectedWave === 'custom') {
+        const real = new Float32Array([0, -1, -1, -1, -1, -1]);
+        const imag = new Float32Array([0, 0.93, 0.82, 0.63, 0.36, 0.14]);
+        let wave = context.createPeriodicWave(real, imag, { disableNormalization: false });
+        o.setPeriodicWave(wave);
+    }else {
         o.type = selectedWave; // sine, square, sawtooth, triangle
     }
     o.connect(g);

@@ -126,6 +126,9 @@
         .defaultOpen{
             display: none;
         }
+        #uploadSection {
+            display: none;
+        }
 
         .noselect {
             -webkit-touch-callout: none; /* iOS Safari */
@@ -148,17 +151,23 @@
         <div id="menuOptions">
             <div>
                 <h2>Wavetypes</h2>
-                <input type="radio" id="wave0" value="sine" name="wave" class="w3-radio" checked="checked">Sine<br />
-                <input type="radio" id="wave1" value="square" name="wave" class="w3-radio">Square<br />
-                <input type="radio" id="wave2" value="sawtooth" name="wave" class="w3-radio">Sawtooth<br />
-                <input type="radio" id="wave3" value="triangle" name="wave" class="w3-radio">Triangle<br />
-                <input type="radio" id="wave3" value="otamatone" name="wave" class="w3-radio">Otamatone<br />
+                <input type="radio" id="wave0" onclick="customClicked()" value="sine" name="wave" class="w3-radio" checked="checked">Sine<br />
+                <input type="radio" id="wave1" onclick="customClicked()" value="square" name="wave" class="w3-radio">Square<br />
+                <input type="radio" id="wave2" onclick="customClicked()" value="sawtooth" name="wave" class="w3-radio">Sawtooth<br />
+                <input type="radio" id="wave3" onclick="customClicked()" value="triangle" name="wave" class="w3-radio">Triangle<br />
+                <input type="radio" id="wave4" onclick="customClicked()" value="otamatone" name="wave" class="w3-radio">Otamatone<br />
+                <input type="radio" id="wave5" onclick="customClicked()" value="custom" name="wave" class="w3-radio">Custom<br />
+                <div id="uploadSection"><input type="file" id="fileReader" /></div>
             </div>
             <div>
                 <h2>Pitch Correction</h2>
                 <input type="radio" id="check0" value=0 name="pitch" class="w3-radio" checked="checked"> Full Control<br />
                 <input type="radio" id="check1" value=1 name="pitch"  class="w3-radio"> First Pitch Correct<br />
                 <input type="radio" id="check2" value=2 name="pitch"  class="w3-radio"> Constant Pitch Correct<br />
+            </div>
+            <div>
+                <h2>Octave Selection</h2>
+                <input onchange="calculateChange()" id="slider0" type="range" min="0" max="2" value="1" step="1" />
             </div>
         </div>
     </div>
