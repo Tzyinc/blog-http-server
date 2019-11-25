@@ -11,6 +11,7 @@
     <meta property="og:url" content="https://httpserve.tenzhiyang.com/otamaphone">
     <meta name="twitter:card" content="summary_large_image">
     <title>Otamaphone</title>
+    <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -209,6 +210,19 @@
             </div>
         </div>
     </div>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('./sw.js').then(function (registration) {
+                    // Registration was successful
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function (err) {
+                    // registration failed :(
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
     <img class="otaPos defaultClose noselect" id="otaClose" src="./otaclose.png" />
     <img class="otaPos defaultOpen noselect" id="otaOpen" src="./otaopen.png" />
     <script src="index.js"></script>
