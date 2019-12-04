@@ -1,6 +1,6 @@
 {
-    "name": "undefined",
-    "short_name": "undefined",
+    "name": "Fourier Series Vis",
+    "short_name": "FSV",
     "icons": [
         {
             "src": "assets/logo-192.png",
