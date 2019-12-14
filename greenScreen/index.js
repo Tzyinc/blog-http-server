@@ -1,7 +1,4 @@
-let outputStride = 2;
 let segmentationThreshold = 0.75;
-const maskBackground = false;
-const strides = [8, 16, 32];
 
 const webcamElement = document.getElementById('webcam');
 const colorPicker = document.getElementById('jscolor');
@@ -59,28 +56,37 @@ function changeBlur() {
 
 async function app() {
   console.log('Loading model..');
-  const net = await bodyPix.load();
+  const net = await bodyPix.load({
+    architecture: 'MobileNetV1',
+    outputStride: 16,
+    multiplier: 0.75,
+    quantBytes: 2
+  });
   await setupWebcam();
   maskCanvas = document.createElement('canvas');
   console.log('Sucessfully loaded model');
 
 
-  document.getElementById('stride').addEventListener('click', () => changeStride());
   document.getElementById('segmentationThreshold').addEventListener('change', () => changeSegmentationThreshold());
   colorPicker.addEventListener('change', () => changeColor());
   rangePicker.addEventListener('change', () => changeBlur());
 
-  while (true) {
-    const personSegmentation = await net.estimatePersonSegmentation(
-      c,
-      strides[outputStride],
-      segmentationThreshold,
+  while (!!net) {
+    const personSegmentation = await net.segmentPerson(
+      c, {
+        flipHorizontal: false,
+        internalResolution: 'medium',
+        segmentationThreshold: segmentationThreshold
+      }
     );
     ctx.globalCompositeOperation = 'source-over';
-    // ctx.clearRect(0, 0, 640, 512);
     ctx.drawImage(webcamElement, 0, 0, 640, 512);
 
-    const maskImage = bodyPix.toMaskImageData(personSegmentation, maskBackground);
+    personSegmentation.data = personSegmentation.data.map(item => item === 0 ? 1 : 0);
+    const foregroundColor = { r: 0, g: 0, b: 0, a: 0 };
+    const backgroundColor = { r: 0, g: 0, b: 0, a: 255 };
+    const maskImage = bodyPix.toMask(
+      personSegmentation, foregroundColor, backgroundColor);
     const maskContext = maskCanvas.getContext('2d');
     // draw the mask image to an offscreen canvas.
     maskCanvas.width = maskImage.width;
@@ -91,8 +97,9 @@ async function app() {
 
     maskContext.beginPath();
     maskContext.globalCompositeOperation = 'source-in';
-    maskContext.putImageData(maskImage, 0, 0);
 
+    maskContext.putImageData(maskImage, 0, 0);
+    
     maskContext.rect(0, 0, maskCanvas.width, maskCanvas.height);
     maskContext.fillStyle = 'black'; // shouldnt matter
     maskContext.fill();

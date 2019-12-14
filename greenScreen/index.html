@@ -77,7 +77,7 @@
     <!-- Load TensorFlow.js -->
     <script src="https://unpkg.com/@tensorflow/tfjs"></script>
     <!-- Load whatevernethere -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix@2.0">
     </script>
     <script src="jscolor.js"></script>
 
@@ -86,7 +86,6 @@
         <canvas id="drawCanvas" width="640" height="512" style="border:1px solid #d3d3d3;" ></canvas>
         <video autoplay playsinline muted id="webcam" width="640" height="512"></video>
 
-        <div>output stride (lower = more acc): <button id="stride">32</button></div>
         <div class="center">
           <div>segmentation threshold (lower = looser crop)</div>
           <div><input type="range" min="0" max="1000" value="750" class="slider" id="segmentationThreshold"></div>
