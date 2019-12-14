@@ -9,6 +9,8 @@ const ctx = c.getContext('2d');
 
 let blur = 8;
 
+let segmentBackground = false;
+
 let maskCanvas;
 
 async function setupWebcam() {
@@ -39,6 +41,10 @@ function changeStride() {
   document.getElementById('stride').innerHTML = `${strides[outputStride]}`;
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function changeSegmentationThreshold() {
   let slider = document.getElementById('segmentationThreshold');
   let value = slider.value / 1000;
@@ -66,23 +72,38 @@ async function app() {
   maskCanvas = document.createElement('canvas');
   console.log('Sucessfully loaded model');
 
-
+  document.getElementById('flipBackground').addEventListener('click', () => changeGreenScreenTarget());
   document.getElementById('segmentationThreshold').addEventListener('change', () => changeSegmentationThreshold());
   colorPicker.addEventListener('change', () => changeColor());
   rangePicker.addEventListener('change', () => changeBlur());
+  
+  function changeGreenScreenTarget() {
+    console.log(segmentBackground)
+    if (segmentBackground) {
+      segmentBackground = false;
+      document.getElementById('flipBackground').innerText = "Remove Background";
+    } else {
+      segmentBackground = true;
+      document.getElementById('flipBackground').innerText = "Remove Person";
+    }
+  }
 
   while (!!net) {
+    await sleep(1);
     const personSegmentation = await net.segmentPerson(
       c, {
         flipHorizontal: false,
         internalResolution: 'medium',
-        segmentationThreshold: segmentationThreshold
+        segmentationThreshold: segmentBackground ? 1 - segmentationThreshold : segmentationThreshold
       }
     );
     ctx.globalCompositeOperation = 'source-over';
+    
     ctx.drawImage(webcamElement, 0, 0, 640, 512);
 
-    personSegmentation.data = personSegmentation.data.map(item => item === 0 ? 1 : 0);
+    if (segmentBackground) {
+      personSegmentation.data = personSegmentation.data.map(item => item === 0 ? 1 : 0);
+    }
     const foregroundColor = { r: 0, g: 0, b: 0, a: 0 };
     const backgroundColor = { r: 0, g: 0, b: 0, a: 255 };
     const maskImage = bodyPix.toMask(

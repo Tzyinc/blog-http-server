@@ -86,8 +86,9 @@
         <canvas id="drawCanvas" width="640" height="512" style="border:1px solid #d3d3d3;" ></canvas>
         <video autoplay playsinline muted id="webcam" width="640" height="512"></video>
 
+        <div><button id="flipBackground">Remove Background</button></div>
         <div class="center">
-          <div>segmentation threshold (lower = looser crop)</div>
+          <div>segmentation threshold (crop tuning)</div>
           <div><input type="range" min="0" max="1000" value="750" class="slider" id="segmentationThreshold"></div>
           <div id="segtreshval">0.75</div>
         </div>
