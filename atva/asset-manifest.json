@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/static/css/main.d723428e.chunk.css",
-    "main.js": "/static/js/main.c8cf227b.chunk.js",
-    "main.js.map": "/static/js/main.c8cf227b.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.aa0d418c.js",
-    "runtime-main.js.map": "/static/js/runtime-main.aa0d418c.js.map",
-    "static/js/2.ddf508e5.chunk.js": "/static/js/2.ddf508e5.chunk.js",
-    "static/js/2.ddf508e5.chunk.js.map": "/static/js/2.ddf508e5.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.396da55e896633e2a1a0bb1d6299e00f.js": "/precache-manifest.396da55e896633e2a1a0bb1d6299e00f.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.d723428e.chunk.css.map": "/static/css/main.d723428e.chunk.css.map",
-    "static/js/2.ddf508e5.chunk.js.LICENSE": "/static/js/2.ddf508e5.chunk.js.LICENSE",
-    "static/media/style.css": "/static/media/thinking.f5214ef7.png"
+    "main.css": "/atva/static/css/main.d723428e.chunk.css",
+    "main.js": "/atva/static/js/main.c8cf227b.chunk.js",
+    "main.js.map": "/atva/static/js/main.c8cf227b.chunk.js.map",
+    "runtime-main.js": "/atva/static/js/runtime-main.aa0d418c.js",
+    "runtime-main.js.map": "/atva/static/js/runtime-main.aa0d418c.js.map",
+    "static/js/2.ddf508e5.chunk.js": "/atva/static/js/2.ddf508e5.chunk.js",
+    "static/js/2.ddf508e5.chunk.js.map": "/atva/static/js/2.ddf508e5.chunk.js.map",
+    "index.html": "/atva/index.html",
+    "precache-manifest.396da55e896633e2a1a0bb1d6299e00f.js": "/atva/precache-manifest.396da55e896633e2a1a0bb1d6299e00f.js",
+    "service-worker.js": "/atva/service-worker.js",
+    "static/css/main.d723428e.chunk.css.map": "/atva/static/css/main.d723428e.chunk.css.map",
+    "static/js/2.ddf508e5.chunk.js.LICENSE": "/atva/static/js/2.ddf508e5.chunk.js.LICENSE",
+    "static/media/style.css": "/atva/static/media/thinking.f5214ef7.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.aa0d418c.js",
-    "static/js/2.ddf508e5.chunk.js",
-    "static/css/main.d723428e.chunk.css",
-    "static/js/main.c8cf227b.chunk.js"
+    "atva/static/js/runtime-main.aa0d418c.js",
+    "atva/static/js/2.ddf508e5.chunk.js",
+    "atva/static/css/main.d723428e.chunk.css",
+    "atva/static/js/main.c8cf227b.chunk.js"
   ]
 }
