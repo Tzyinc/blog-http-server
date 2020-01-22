@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/atva/static/css/main.0c1bba1f.chunk.css",
+    "main.js": "/atva/static/js/main.b7b26a51.chunk.js",
+    "main.js.map": "/atva/static/js/main.b7b26a51.chunk.js.map",
+    "runtime-main.js": "/atva/static/js/runtime-main.61fea6a0.js",
+    "runtime-main.js.map": "/atva/static/js/runtime-main.61fea6a0.js.map",
+    "static/js/2.3931b395.chunk.js": "/atva/static/js/2.3931b395.chunk.js",
+    "static/js/2.3931b395.chunk.js.map": "/atva/static/js/2.3931b395.chunk.js.map",
+    "index.html": "/atva/index.html",
+    "precache-manifest.05debe5afebc9c6997ef47de6f061c39.js": "/atva/precache-manifest.05debe5afebc9c6997ef47de6f061c39.js",
+    "service-worker.js": "/atva/service-worker.js",
+    "static/css/main.0c1bba1f.chunk.css.map": "/atva/static/css/main.0c1bba1f.chunk.css.map",
+    "static/js/2.3931b395.chunk.js.LICENSE": "/atva/static/js/2.3931b395.chunk.js.LICENSE",
+    "static/media/style.css": "/atva/static/media/thinking.f5214ef7.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.61fea6a0.js",
+    "static/js/2.3931b395.chunk.js",
+    "static/css/main.0c1bba1f.chunk.css",
+    "static/js/main.b7b26a51.chunk.js"
+  ]
+}
