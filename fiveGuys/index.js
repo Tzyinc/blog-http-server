@@ -9,8 +9,6 @@ let updated = 0;
 
 function getPSI() {
     console.log('fetching');
-    // pm2.5 Chart1HRPM25
-    // psi ChartPM25
 
     fetch(`https://blogbackend.tenzhiyang.com/wuhanUpdated`).then(response => response.json()).then(data => {
         if (updated !== data.date) {
@@ -31,11 +29,14 @@ function getPSI() {
                             newsList = newsList.sort((a, b) => b.created - a.created);
                             if (prev.created != newsList[0].created) {
                                 wrapper.innerHTML = "";
+                                const styleReg = /style/gi;
+                                const brReg = /<br>/gi;
                                 for (let news of newsList) {
+                                    const cleanContent = news.contents.replace(styleReg, "data-style").replace(brReg, "");
                                     wrapper.innerHTML += `
                                 <h4>${news.newstitle}</h4>
                                 <h5>${new Date(news.created * 1000)}</h5>
-                                <div class="content">${news.contents}</div>
+                                <div class="content">${cleanContent}</div>
                             `;
                                     wrapper.innerHTML += '<br />';
                                 }
