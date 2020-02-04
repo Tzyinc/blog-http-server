@@ -23,8 +23,6 @@ let currentSelected = {
 };
 
 var noteStrings = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-//C–E–F–G–B–C
-//5-H-W-4-H
 
 function scaleFromPattern(pattern, root, octaves = 2, startOctave = 3) {
 	let scale = [];
@@ -69,10 +67,10 @@ const SCALES = [
 	...['C', 'E', 'G#', 'C#', 'F', 'A', 'D', 'F#', 'A#', 'D#', 'G', 'B'].flatMap(root => {
 		return [{ 
 			name: `Guitar ${root} maj pentatonic scale, asc`,
-			notes: scaleFromPattern('4-H-W-4-H'.split('-'), root, 3)
+			notes: scaleFromPattern('W-W-3-W-3'.split('-'), root, 3)
 		}, {
 			name: `Guitar ${root} maj pentatonic scale, desc`,
-			notes: scaleFromPattern('4-H-W-4-H'.split('-'), root, 3).reverse()
+			notes: scaleFromPattern('W-W-3-W-3'.split('-'), root, 3).reverse()
 		}];
 	})
 ];
@@ -152,7 +150,9 @@ function gotStream(stream) {
     mediaStreamSource = audioContext.createMediaStreamSource(stream);
 
     // Connect it to the destination.
-    analyser = audioContext.createAnalyser();
+	analyser = audioContext.createAnalyser();
+
+	mediaStreamSource.connect(audioContext.destination);
     analyser.fftSize = 2048;
     mediaStreamSource.connect( analyser );
     updatePitch();
