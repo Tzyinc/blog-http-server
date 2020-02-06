@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/atva/static/css/main.0c1bba1f.chunk.css",
-    "main.js": "/atva/static/js/main.e03a11fe.chunk.js",
-    "main.js.map": "/atva/static/js/main.e03a11fe.chunk.js.map",
+    "main.js": "/atva/static/js/main.863f5bda.chunk.js",
+    "main.js.map": "/atva/static/js/main.863f5bda.chunk.js.map",
     "runtime-main.js": "/atva/static/js/runtime-main.61fea6a0.js",
     "runtime-main.js.map": "/atva/static/js/runtime-main.61fea6a0.js.map",
     "static/js/2.0c1ecef4.chunk.js": "/atva/static/js/2.0c1ecef4.chunk.js",
     "static/js/2.0c1ecef4.chunk.js.map": "/atva/static/js/2.0c1ecef4.chunk.js.map",
     "index.html": "/atva/index.html",
-    "precache-manifest.d20d92dd7efb8a28d7695ec2c51032e2.js": "/atva/precache-manifest.d20d92dd7efb8a28d7695ec2c51032e2.js",
+    "precache-manifest.30a3b674b4bcdd54f37492427912c179.js": "/atva/precache-manifest.30a3b674b4bcdd54f37492427912c179.js",
     "service-worker.js": "/atva/service-worker.js",
     "static/css/main.0c1bba1f.chunk.css.map": "/atva/static/css/main.0c1bba1f.chunk.css.map",
     "static/js/2.0c1ecef4.chunk.js.LICENSE": "/atva/static/js/2.0c1ecef4.chunk.js.LICENSE",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.61fea6a0.js",
     "static/js/2.0c1ecef4.chunk.js",
     "static/css/main.0c1bba1f.chunk.css",
-    "static/js/main.e03a11fe.chunk.js"
+    "static/js/main.863f5bda.chunk.js"
   ]
 }
