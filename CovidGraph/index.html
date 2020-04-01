@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta property="og:title" content="Covid-19 Country Statistics">
+    <meta property="og:description" content="Quick project using data from https://covid19api.com/">
+    <meta property="og:image" content="https://httpserve.tenzhiyang.com/CovidGraph/screen.png">
+    <meta property="og:url" content="https://httpserve.tenzhiyang.com/CovidGraph">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Covid-19 Country Statistics</title>
+    <style>
+        #countriesInput {
+            margin-top: 0;
+            padding-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Covid-19 Country Statistics</h1>
+    
+    <input list="countries" id="countriesInput" placeholder="Select Country Here">
+    <datalist id="countries">
+    </datalist>
+    <br />
+    <canvas id="lineChart" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script type="text/javascript">
+        let canvas = document.getElementById("lineChart");
+            let ctx = canvas.getContext("2d");
+            let countryList = [];
+            let countryData = [];
+            let myLineChart;
+
+            const Months = [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sept",
+                "Oct",
+                "Nov",
+                "Dec"
+            ];
+
+            const fetchCountries = () => {
+                fetch("https://api.covid19api.com/countries")
+                    .then(res => res.json())
+                    .then(res => {
+                        const select = document.getElementById("countries");
+                        for (const country of res) {
+                            const option = document.createElement("option");
+                            option.text = country.Country;
+                            option.value = country.Country;
+                            countryList.push(country);
+                            select.appendChild(option);
+                        }
+                    })
+                    .catch(function (err) {
+                        console.log(err);
+                    });
+            };
+
+            const fetchCountry = country => {
+                const urls = [
+                    `https://api.covid19api.com/total/country/${country.Slug}/status/confirmed`,
+                    `https://api.covid19api.com/total/country/${country.Slug}/status/deaths`,
+                    `https://api.covid19api.com/total/country/${country.Slug}/status/recovered`
+                ];
+                const promises = urls.map(url => fetch(url).then(res => res.json()));
+                const resultSets = [];
+                Promise.all(promises).then(results => {
+                    generateChart(
+                        results[0].map(item => {
+                            let date = new Date(item.Date);
+                            return (
+                                date.getDate() +
+                                " " +
+                                Months[date.getMonth()] +
+                                " " +
+                                date.getFullYear()
+                            );
+                        }),
+                        [
+                            {
+                                data: results[0].map(item => item.Cases),
+                                label: "Cases",
+                                borderColor: "#3e95cd",
+                                fill: true
+                            },
+
+                            {
+                                data: results[1].map(item => item.Cases),
+                                label: "Deaths",
+                                borderColor: "red",
+                                fill: true
+                            },
+
+                            {
+                                data: results[2].map(item => item.Cases),
+                                label: "Recovered",
+                                borderColor: "Green",
+                                fill: true
+                            }
+                        ]
+                    );
+                });
+            };
+
+            fetchCountries();
+
+            document
+                .getElementById("countriesInput")
+                .addEventListener("input", function (e) {
+                    const value = e.target.value;
+                    const country = countryList.find(item => item.Country === value);
+                    if (country) {
+                        fetchCountry(country);
+                    }
+                });
+
+            const generateChart = (xaxis, lineData) => {
+                const data = {
+                    labels: xaxis,
+                    datasets: lineData
+                };
+                const options = {};
+                if (myLineChart) {
+                    let newCanvas = document.createElement("canvas");
+                    document.getElementById("lineChart").replaceWith(newCanvas);
+                    newCanvas.setAttribute("id", "lineChart");
+                    canvas = document.getElementById("lineChart");
+                    ctx = canvas.getContext("2d");
+                }
+                myLineChart = new Chart(ctx, {
+                    type: "line",
+                    data: data,
+                    options: options
+                });
+            };
+
+            function addData(chart, label, data) {
+                chart.data.labels.push(label);
+                chart.data.datasets.forEach(dataset => {
+                    dataset.data.push(data);
+                });
+            }
+    </script>
+</body>
+
+</html>
