@@ -1,4 +1,6 @@
-let context = new (window.AudioContext || window.webkitAudioContext)();
+const AudioContext = window.AudioContext || window.webkitAudioContext;// Safari and old versions of Chrome
+
+let context;
 let o;
 let g;
 
@@ -245,6 +247,9 @@ function moveHandler(e) {
 
 function downHandler(e) {
     if (!isDown) {
+        if (!context) {
+            context = new AudioContext();
+        }
         clientY = e.clientY || e && e.targetTouches && e.targetTouches[0] && e.targetTouches[0].clientY;
         clientX = e.clientX || e && e.targetTouches && e.targetTouches[0] && e.targetTouches[0].clientX;
         setNote(scaleHeight(clientY));
