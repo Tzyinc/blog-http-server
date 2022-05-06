@@ -18,7 +18,7 @@
             color: white;
         }
         button {
-            -webkit-user-select: none; /* Safari */        
+            -webkit-user-select: none; /* Safari */
             -moz-user-select: none; /* Firefox */
             -ms-user-select: none; /* IE10+/Edge */
             user-select: none; /* Standard */
@@ -36,21 +36,21 @@
                             get : function() {
                                 return this.keyCodeVal;
                             }
-                });     
+                });
                 Object.defineProperty(oEvent, 'which', {
                             get : function() {
                                 return this.keyCodeVal;
                             }
-                });     
+                });
 
                 if (oEvent.initKeyboardEvent) {
                     oEvent.initKeyboardEvent("keydown", true, true, document.defaultView, k, k, "", "", false, "");
                 } else {
                     oEvent.initKeyEvent("keydown", true, true, document.defaultView, false, false, false, false, k, 0);
                 }
-    
+
                 oEvent.keyCodeVal = k;
-    
+
                 if (oEvent.keyCode !== k) {
                     alert("keyCode mismatch " + oEvent.keyCode + "(" + oEvent.which + ")");
                 }
@@ -68,22 +68,22 @@
                             get : function() {
                                 return this.keyCodeVal;
                             }
-                });     
+                });
                 Object.defineProperty(oEvent, 'which', {
                             get : function() {
                                 return this.keyCodeVal;
                             }
-                });     
+                });
 
-                
+
                 if (oEvent.initKeyboardEvent) {
                     oEvent.initKeyboardEvent("keyup", true, true, document.defaultView, k, k, "", "", false, "");
                 } else {
                     oEvent.initKeyEvent("keyup", true, true, document.defaultView, false, false, false, false, k, 0);
                 }
-    
+
                 oEvent.keyCodeVal = k;
-    
+
                 if (oEvent.keyCode !== k) {
                     alert("keyCode mismatch " + oEvent.keyCode + "(" + oEvent.which + ")");
                 }
@@ -98,6 +98,18 @@
             uLeft: false,
             uRight: false,
         }
+
+        let hasEnteredUp = false;
+
+        const resetTouchState = () => {
+          touchState = {
+              left: false,
+              right: false,
+              middle: false,
+              uLeft: false,
+              uRight: false,
+          }
+        }
         // const ongoingTouches = [];
 
         function startup() {
@@ -105,62 +117,129 @@
             const handleStart = (evt) => {
                 evt.preventDefault();
                 const touches = evt.changedTouches;
-                for (let i = 0; i < touches.length; i++) {
-                    // ongoingTouches.push(copyTouch(touches[i]));
+                let i =0
 
-                    let x = touches[i].pageX;
-                    let y = touches[i].pageY;
-                    let maxX = touches[i].target.offsetWidth;
-                    let maxY = touches[i].target.offsetHeight;
-                    switch (true) {
-                        case (x < maxX/3 && x > 0 && y > maxY/2 && y < maxY):
-                            Podium.keydown([37]);
-                            touchState.left = true;
-                            break;
-                        case (x < maxX/3 && x > 0 && y < maxY/2 && y > 0):
-                            Podium.keydown([37,32]);
-                            touchState.uLeft = true;
-                            break;
-                        case (x < maxX && x > maxX/3*2 && y > maxY/2 && y < maxY):
-                            Podium.keydown([39]);
-                            touchState.right = true;
-                            break;
-                        case (x < maxX && x > maxX/3*2  && y < maxY/2 && y > 0):
-                            Podium.keydown([39,32]);
-                            touchState.uRight = true;
-                            break;
-                        case (x < maxX/3*2  && x > maxX/3):
-                            Podium.keydown([32]);
-                            touchState.middle = true;
-                            break;
-                        default: break;
-                    }
-
+                let x = touches[i].pageX;
+                let y = touches[i].pageY;
+                let maxX = touches[i].target.offsetWidth;
+                let maxY = touches[i].target.offsetHeight;
+                switch (true) {
+                    case (x < maxX/3 && x > 0 && y > maxY/2 && y < maxY):
+                        Podium.keydown([37]);
+                        touchState.left = true;
+                        break;
+                    case (x < maxX/3 && x > 0 && y < maxY/2 && y > 0):
+                        Podium.keydown([37,32]);
+                        touchState.uLeft = true;
+                        hasEnteredUp = true;
+                        break;
+                    case (x < maxX && x > maxX/3*2 && y > maxY/2 && y < maxY):
+                        Podium.keydown([39]);
+                        touchState.right = true;
+                        break;
+                    case (x < maxX && x > maxX/3*2  && y < maxY/2 && y > 0):
+                        Podium.keydown([39,32]);
+                        touchState.uRight = true;
+                        hasEnteredUp = true;
+                        break;
+                    case (x < maxX/3*2  && x > maxX/3):
+                        Podium.keydown([32]);
+                        touchState.middle = true;
+                        hasEnteredUp = true;
+                        break;
+                    default: break;
                 }
+
             }
+
             canvasDiv.addEventListener("touchstart", handleStart)
+
+            const handleMove = (evt) => {
+              evt.preventDefault();
+              const touches = evt.changedTouches;
+              let i =0
+
+              let x = touches[i].pageX;
+              let y = touches[i].pageY;
+              let maxX = touches[i].target.offsetWidth;
+              let maxY = touches[i].target.offsetHeight;
+              switch (true) {
+                  case (x < maxX/3 && x > 0 && y > maxY/2 && y < maxY):
+                      if (touchState.uRight || touchState.right){
+                        Podium.keyup([39]);
+                      }
+                      resetTouchState();
+                      Podium.keydown([37]);
+                      touchState.left = true;
+                      break;
+                  case (x < maxX/3 && x > 0 && y < maxY/2 && y > 0):
+                      if (touchState.uRight || touchState.right){
+                        Podium.keyup([39]);
+                      }
+                      resetTouchState();
+                      Podium.keydown([37,32]);
+                      touchState.uLeft = true;
+                      hasEnteredUp = true;
+                      break;
+                  case (x < maxX && x > maxX/3*2 && y > maxY/2 && y < maxY):
+                      if (touchState.uLeft || touchState.left){
+                        Podium.keyup([37]);
+                      }
+                      resetTouchState();
+
+                      Podium.keydown([39]);
+                      touchState.right = true;
+                      break;
+                  case (x < maxX && x > maxX/3*2  && y < maxY/2 && y > 0):
+                      if (touchState.uLeft || touchState.left){
+                        Podium.keyup([37]);
+                      }
+                      resetTouchState();
+                      Podium.keydown([39,32]);
+                      touchState.uRight = true;
+                      hasEnteredUp = true;
+                      break;
+                  case (x < maxX/3*2  && x > maxX/3):
+                      if (touchState.uLeft || touchState.left){
+                        Podium.keyup([37]);
+                      }
+                      if (touchState.uRight || touchState.right){
+                        Podium.keyup([39]);
+                      }
+                      resetTouchState();
+                      Podium.keydown([32]);
+                      touchState.middle = true;
+                      hasEnteredUp = true;
+                      break;
+                  default: break;
+              }
+            }
+
+            canvasDiv.addEventListener("touchmove", handleMove)
+
             const handleEnd = (evt) => {
                 evt.preventDefault();
 
                 const touches = evt.changedTouches;
-                if (touchState.left)
-                        Podium.keyup([37]);
+                if (touchState.left) {
+                        let release = [37]
+                        if (hasEnteredUp)
+                            release = [32,37];
+                        Podium.keyup(release);
+                }
                 if (touchState.uLeft)
                         Podium.keyup([32,37]);
-                if (touchState.right)
-                        Podium.keyup([39]);
+                if (touchState.right) {
+                        let release = [39]
+                        if (hasEnteredUp)
+                            release = [32,39];
+                        Podium.keyup(release);
+                }
                 if (touchState.uRight)
                         Podium.keyup([32,39]);
                 if (touchState.middle)
                         Podium.keyup([32]);
-                touchState = {
-                    left: false,
-                    right: false,
-                    middle: false,
-                    uLeft: false,
-                    uRight: false,
-                }
-                
+                resetTouchState();
             }
             canvasDiv.addEventListener("touchend", handleEnd)
         }
@@ -170,7 +249,7 @@
         function logKey(e) {
             console.log(e.keyCode)
         }
-        document.addEventListener('keydown', logKey);
+        // document.addEventListener('keydown', logKey);
 
     </script>
 </head>
