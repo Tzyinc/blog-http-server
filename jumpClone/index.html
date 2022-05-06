@@ -110,9 +110,33 @@
     Not by me, forked from <a href="https://github.com/Code-Bullet/Jump-King">code bullet</a>
     <div id="canvas"></div>
     <div style="display: grid; grid-template-columns: auto auto auto; height: 10vh;">
-        <button onmousedown="Podium.keydown(37)" onmouseup="Podium.keyup(37)">⇦</button>
-        <button onmousedown="Podium.keydown(32)" onmouseup="Podium.keyup(32)">⇧</button>
-        <button onmousedown="Podium.keydown(39)" onmouseup="Podium.keyup(39)">⇨</button>
+        <button 
+            style="font-size: 10vh"
+            onmousedown="Podium.keydown(37)"
+            onmouseup="Podium.keyup(37)"
+            ontouchstart="Podium.keydown(37)"
+            ontouchend="Podium.keyup(37)"
+        >
+            ⇦
+        </button>
+        <button 
+            style="font-size: 10vh"
+            onmousedown="Podium.keydown(32)"
+            onmouseup="Podium.keyup(32)"
+            ontouchstart="Podium.keydown(32)"
+            ontouchend="Podium.keyup(32)"
+        >
+            ⇧
+        </button>
+        <button 
+            style="font-size: 10vh"
+            onmousedown="Podium.keydown(39)"
+            onmouseup="Podium.keyup(39)"
+            ontouchstart="Podium.keydown(39)"
+            ontouchend="Podium.keyup(39)"
+        >
+            ⇨
+        </button>
     </div>
 </center>
 
