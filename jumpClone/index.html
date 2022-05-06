@@ -27,64 +27,69 @@
     <script>
         Podium = {};
 
-        Podium.keydown = function(k) {
-            var oEvent = document.createEvent('KeyboardEvent');
+        Podium.keydown = function(arr) {
+            for (let k of arr) {
+                var oEvent = document.createEvent('KeyboardEvent');
 
-            // Chromium Hack
-            Object.defineProperty(oEvent, 'keyCode', {
-                        get : function() {
-                            return this.keyCodeVal;
-                        }
-            });     
-            Object.defineProperty(oEvent, 'which', {
-                        get : function() {
-                            return this.keyCodeVal;
-                        }
-            });     
+                // Chromium Hack
+                Object.defineProperty(oEvent, 'keyCode', {
+                            get : function() {
+                                return this.keyCodeVal;
+                            }
+                });     
+                Object.defineProperty(oEvent, 'which', {
+                            get : function() {
+                                return this.keyCodeVal;
+                            }
+                });     
 
-            if (oEvent.initKeyboardEvent) {
-                oEvent.initKeyboardEvent("keydown", true, true, document.defaultView, k, k, "", "", false, "");
-            } else {
-                oEvent.initKeyEvent("keydown", true, true, document.defaultView, false, false, false, false, k, 0);
+                if (oEvent.initKeyboardEvent) {
+                    oEvent.initKeyboardEvent("keydown", true, true, document.defaultView, k, k, "", "", false, "");
+                } else {
+                    oEvent.initKeyEvent("keydown", true, true, document.defaultView, false, false, false, false, k, 0);
+                }
+    
+                oEvent.keyCodeVal = k;
+    
+                if (oEvent.keyCode !== k) {
+                    alert("keyCode mismatch " + oEvent.keyCode + "(" + oEvent.which + ")");
+                }
+                document.body.dispatchEvent(oEvent);
             }
 
-            oEvent.keyCodeVal = k;
-
-            if (oEvent.keyCode !== k) {
-                alert("keyCode mismatch " + oEvent.keyCode + "(" + oEvent.which + ")");
-            }
-
-            document.body.dispatchEvent(oEvent);
         }
 
-        Podium.keyup = function(k) {
-            var oEvent = document.createEvent('KeyboardEvent');
+        Podium.keyup = function(arr) {
+            for (let k of arr) {
+                var oEvent = document.createEvent('KeyboardEvent');
 
-            // Chromium Hack
-            Object.defineProperty(oEvent, 'keyCode', {
-                        get : function() {
-                            return this.keyCodeVal;
-                        }
-            });     
-            Object.defineProperty(oEvent, 'which', {
-                        get : function() {
-                            return this.keyCodeVal;
-                        }
-            });     
+                // Chromium Hack
+                Object.defineProperty(oEvent, 'keyCode', {
+                            get : function() {
+                                return this.keyCodeVal;
+                            }
+                });     
+                Object.defineProperty(oEvent, 'which', {
+                            get : function() {
+                                return this.keyCodeVal;
+                            }
+                });     
 
-            if (oEvent.initKeyboardEvent) {
-                oEvent.initKeyboardEvent("keyup", true, true, document.defaultView, k, k, "", "", false, "");
-            } else {
-                oEvent.initKeyEvent("keyup", true, true, document.defaultView, false, false, false, false, k, 0);
+                
+                if (oEvent.initKeyboardEvent) {
+                    oEvent.initKeyboardEvent("keyup", true, true, document.defaultView, k, k, "", "", false, "");
+                } else {
+                    oEvent.initKeyEvent("keyup", true, true, document.defaultView, false, false, false, false, k, 0);
+                }
+    
+                oEvent.keyCodeVal = k;
+    
+                if (oEvent.keyCode !== k) {
+                    alert("keyCode mismatch " + oEvent.keyCode + "(" + oEvent.which + ")");
+                }
+                document.body.dispatchEvent(oEvent);
             }
 
-            oEvent.keyCodeVal = k;
-
-            if (oEvent.keyCode !== k) {
-                alert("keyCode mismatch " + oEvent.keyCode + "(" + oEvent.which + ")");
-            }
-
-            document.body.dispatchEvent(oEvent);
         }
         let touchState = {
             left: false,
@@ -109,23 +114,23 @@
                     let maxY = touches[i].target.offsetHeight;
                     switch (true) {
                         case (x < maxX/3 && x > 0 && y > maxY/2 && y < maxY):
-                            Podium.keydown(37);
+                            Podium.keydown([37]);
                             touchState.left = true;
                             break;
                         case (x < maxX/3 && x > 0 && y < maxY/2 && y > 0):
-                            Podium.keydown(37);
+                            Podium.keydown([37,32]);
                             touchState.uLeft = true;
                             break;
                         case (x < maxX && x > maxX/3*2 && y > maxY/2 && y < maxY):
-                            Podium.keydown(39);
+                            Podium.keydown([39]);
                             touchState.right = true;
                             break;
                         case (x < maxX && x > maxX/3*2  && y < maxY/2 && y > 0):
-                            Podium.keydown(39);
+                            Podium.keydown([39,32]);
                             touchState.uRight = true;
                             break;
                         case (x < maxX/3*2  && x > maxX/3):
-                            Podium.keydown(32);
+                            Podium.keydown([32]);
                             touchState.middle = true;
                             break;
                         default: break;
@@ -139,15 +144,15 @@
 
                 const touches = evt.changedTouches;
                 if (touchState.left)
-                        Podium.keyup(37);
+                        Podium.keyup([37]);
                 if (touchState.uLeft)
-                        Podium.keyup(37);
+                        Podium.keyup([32,37]);
                 if (touchState.right)
-                        Podium.keyup(39);
+                        Podium.keyup([39]);
                 if (touchState.uRight)
-                        Podium.keyup(39);
+                        Podium.keyup([32,39]);
                 if (touchState.middle)
-                        Podium.keyup(32);
+                        Podium.keyup([32]);
                 touchState = {
                     left: false,
                     right: false,
@@ -161,6 +166,12 @@
         }
 
         document.addEventListener("DOMContentLoaded", startup);
+
+        function logKey(e) {
+            console.log(e.keyCode)
+        }
+        document.addEventListener('keydown', logKey);
+
     </script>
 </head>
 
