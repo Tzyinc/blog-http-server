@@ -138,24 +138,16 @@
                 evt.preventDefault();
 
                 const touches = evt.changedTouches;
-                switch (true) {
-                    case touchState.left:
+                if (touchState.left)
                         Podium.keyup(37);
-                        break;
-                    case touchState.uLeft:
+                if (touchState.uLeft)
                         Podium.keyup(37);
-                        break;
-                    case touchState.right:
+                if (touchState.right)
                         Podium.keyup(39);
-                        break;
-                    case touchState.uRight:
+                if (touchState.uRight)
                         Podium.keyup(39);
-                        break;
-                    case touchState.middle:
+                if (touchState.middle)
                         Podium.keyup(32);
-                        break;
-                    default: break;
-                }
                 touchState = {
                     left: false,
                     right: false,
