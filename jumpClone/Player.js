@@ -103,6 +103,27 @@ class PlayerState {
         // player.actionStarted = this.actionStarted;
     }
 
+    loadStateToSelf(player = {}) {
+      console.log('loadedstate', player)
+      this.currentPos = player.currentPos || createVector(width / 2, height - 200); // this is the top left corner of the hitbox
+      this.currentSpeed = player.currentSpeed || createVector(0, 0);
+      this.isOnGround = player.isOnGround || false;
+
+
+      this.blizzardForce = player.blizzardForce || 0;
+      this.blizzardForceAccelerationDirection = player.blizzardForceAccelerationDirection || 1;
+      this.maxBlizzardForceTimer = player.maxBlizzardForceTimer || 0;
+      this.snowImagePosition = player.snowImagePosition || 0;
+
+      this.currentLevelNo = player.currentLevelNo || 0;
+      this.jumpStartingHeight = player.jumpStartingHeight || 0;
+      this.facingRight = player.facingRight || true;
+
+
+      this.isWaitingToStartAction = player.isWaitingToStartAction || false;
+      this.actionStarted = player.actionStarted || false;
+    }
+
     clone() {
         let clone = new PlayerState();
         clone.currentPos = this.currentPos.copy();
@@ -131,7 +152,6 @@ class PlayerState {
         // clone.actionStarted = this.actionStarted;
         return clone;
     }
-
 
 }
 
