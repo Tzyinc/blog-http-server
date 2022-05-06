@@ -25,27 +25,6 @@
         }
     </style>
     <script>
-        // function dispatchKeyDown(key) {
-        //     console.log(key)
-        //     var event = new KeyboardEvent('keydown', {
-        //         key: key
-        //     });
-        //     document.dispatchEvent(event);
-        // }
-
-        // function dispatchKeyUp(key) {
-        //     console.log(key)
-        //     var event = new KeyboardEvent('keyup', {
-        //         key: key
-        //     });
-        //     document.dispatchEvent(event);
-        // }
-
-
-        // document.addEventListener('keydown', function (e) {
-        //     console.log('Key: ' + e.key + '; alt pressed: ' + e.altKey + '; ctrl pressed: ' + e.ctrlKey);
-        // });
-
         Podium = {};
 
         Podium.keydown = function(k) {
@@ -107,44 +86,97 @@
 
             document.body.dispatchEvent(oEvent);
         }
+        let touchState = {
+            left: false,
+            right: false,
+            middle: false,
+            uLeft: false,
+            uRight: false,
+        }
+        // const ongoingTouches = [];
 
+        function startup() {
+            const canvasDiv = document.getElementById('canvas');
+            const handleStart = (evt) => {
+                evt.preventDefault();
+                const touches = evt.changedTouches;
+                for (let i = 0; i < touches.length; i++) {
+                    // ongoingTouches.push(copyTouch(touches[i]));
+
+                    let x = touches[i].pageX;
+                    let y = touches[i].pageY;
+                    let maxX = touches[i].target.offsetWidth;
+                    let maxY = touches[i].target.offsetHeight;
+                    switch (true) {
+                        case (x < maxX/3 && x > 0 && y > maxY/2 && y < maxY):
+                            Podium.keydown(37);
+                            touchState.left = true;
+                            break;
+                        case (x < maxX/3 && x > 0 && y < maxY/2 && y > 0):
+                            Podium.keydown(37);
+                            touchState.uLeft = true;
+                            break;
+                        case (x < maxX && x > maxX/3*2 && y > maxY/2 && y < maxY):
+                            Podium.keydown(39);
+                            touchState.right = true;
+                            break;
+                        case (x < maxX && x > maxX/3*2  && y < maxY/2 && y > 0):
+                            Podium.keydown(39);
+                            touchState.uRight = true;
+                            break;
+                        case (x < maxX/3*2  && x > maxX/3):
+                            Podium.keydown(32);
+                            touchState.middle = true;
+                            break;
+                        default: break;
+                    }
+
+                }
+            }
+            canvasDiv.addEventListener("touchstart", handleStart)
+            const handleEnd = (evt) => {
+                evt.preventDefault();
+
+                const touches = evt.changedTouches;
+                switch (true) {
+                    case touchState.left:
+                        Podium.keyup(37);
+                        break;
+                    case touchState.uLeft:
+                        Podium.keyup(37);
+                        break;
+                    case touchState.right:
+                        Podium.keyup(39);
+                        break;
+                    case touchState.uRight:
+                        Podium.keyup(39);
+                        break;
+                    case touchState.middle:
+                        Podium.keyup(32);
+                        break;
+                    default: break;
+                }
+                touchState = {
+                    left: false,
+                    right: false,
+                    middle: false,
+                    uLeft: false,
+                    uRight: false,
+                }
+                
+            }
+            canvasDiv.addEventListener("touchend", handleEnd)
+        }
+
+        document.addEventListener("DOMContentLoaded", startup);
     </script>
 </head>
 
-<body>
+<body id="body">
 <center>
     Not by me, forked from <a href="https://github.com/Code-Bullet/Jump-King">code bullet</a>
     <div id="canvas"></div>
 </center>
-<div style="display: grid; grid-template-columns: auto auto auto; height: 10vh;">
-    <button 
-        style="font-size: 10vh"
-        onmousedown="Podium.keydown(37)"
-        onmouseup="Podium.keyup(37)"
-        ontouchstart="Podium.keydown(37)"
-        ontouchend="Podium.keyup(37)"
-    >
-        ⇦
-    </button>
-    <button 
-        style="font-size: 10vh"
-        onmousedown="Podium.keydown(32)"
-        onmouseup="Podium.keyup(32)"
-        ontouchstart="Podium.keydown(32)"
-        ontouchend="Podium.keyup(32)"
-    >
-        ⇧
-    </button>
-    <button 
-        style="font-size: 10vh"
-        onmousedown="Podium.keydown(39)"
-        onmouseup="Podium.keyup(39)"
-        ontouchstart="Podium.keydown(39)"
-        ontouchend="Podium.keyup(39)"
-    >
-        ⇨
-    </button>
-</div>
 
 </body>
 </html>
