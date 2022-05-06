@@ -240,6 +240,7 @@
                 if (touchState.middle)
                         Podium.keyup([32]);
                 resetTouchState();
+                hasEnteredUp =  false;
             }
             canvasDiv.addEventListener("touchend", handleEnd)
         }
