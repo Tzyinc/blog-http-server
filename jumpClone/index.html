@@ -250,7 +250,11 @@
         function logKey(e) {
             console.log(e.keyCode)
         }
-        // document.addEventListener('keydown', logKey);
+        function keyhijack(evt) {
+            evt.preventDefault();
+        }
+        window.addEventListener('keydown', keyhijack);
+        window.addEventListener('keyup', keyhijack);
 
     </script>
 </head>
