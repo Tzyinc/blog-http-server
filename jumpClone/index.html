@@ -25,6 +25,47 @@
         }
     </style>
     <script>
+        let playerState
+        function clickSave() {
+          playerState.getStateFromPlayer(player);
+          const replacer = (key, value) => {
+            if (key === 'currentPos') {
+              return {x: value.x, y: value.y, z: value.z}
+            }
+
+            if (key === 'currentSpeed') {
+              return {x: value.x, y: value.y, z: value.z}
+            }
+            return value;
+          }
+          let playerStateStr = JSON.stringify(playerState, replacer);
+          localStorage.setItem('progress', playerStateStr);
+          console.log('saved', playerStateStr)
+
+        }
+
+        function clickLoad () {
+          let loadedState = localStorage.getItem('progress')
+
+          const reviver = (key, value) => {
+            if (key === 'currentPos') {
+              return createVector(value.x, value.y, value.z)
+            }
+
+            if (key === 'currentSpeed') {
+              return createVector(value.x, value.y, value.z)
+            }
+            return value;
+          }
+
+          const jsonLoadedState = loadedState ? JSON.parse(loadedState, reviver) : undefined
+          playerState = new PlayerState();
+          if (jsonLoadedState) {
+            playerState.loadStateToSelf(jsonLoadedState)
+          }
+          playerState.loadStateToPlayer(player);
+          console.log('loaded', playerState)
+        }
         Podium = {};
 
         Podium.keydown = function(arr) {
@@ -246,6 +287,14 @@
         }
 
         document.addEventListener("DOMContentLoaded", startup);
+        window.addEventListener('load', (event) => {
+            playerState = new PlayerState();
+
+            document.getElementById('savebtn').addEventListener('click',clickSave)
+            document.getElementById('loadbtn').addEventListener('click',clickLoad)
+            document.getElementById('savebtn').addEventListener('touchstart',clickSave)
+            document.getElementById('loadbtn').addEventListener('touchstart',clickLoad)
+        });
 
         function logKey(e) {
             console.log(e.keyCode)
@@ -261,9 +310,12 @@
 
 <body id="body">
 <center>
-    Not by me, forked from <a href="https://github.com/Code-Bullet/Jump-King">code bullet</a>
+  <div>
+    <span>Not by me, forked from <a href="https://github.com/Code-Bullet/Jump-King">code bullet</a></span>
+    <button id="savebtn">save</button>
+    <button id="loadbtn">load</button>
+  </div>
     <div id="canvas"></div>
 </center>
-
 </body>
 </html>
