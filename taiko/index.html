@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel='icon' href='favicon.ico' type='image/x-icon' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta property="og:title" content="Taiko no testsujin">
+    <meta property="og:description" content="Taiko on a brower">
+    <meta property="og:image" content="https://app.tenzhiyang.com/taiko/donchan.webp">
+    <meta property="og:url" content="https://app.tenzhiyang.com/taiko">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Taiko no testsujin</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Montserrat", sans-serif
+        }
+
+        #drum {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            margin: auto;
+        }
+
+        #drumHead {
+            position: absolute;
+            left: 0;
+            top: 0;
+
+            left: 50%;
+            transform: translate(-50%);
+            top: 0;
+            background-image: url(./drum_sprite.png);
+            height: min(100vw, 100vh);
+            width: min(80vw, 80vh);
+            background-position: 0vw 0vw;
+            background-size: min(80vw, 80vh);
+        }
+
+        #drumLKa {
+            position: absolute;
+
+            left: 50%;
+            transform: translate(-50%);
+            top: 0;
+            background-image: url(./drum_sprite.png);
+            height: min(75vw, 75vh);
+            width: min(80vw, 80vh);
+            background-position: 0vw min(76vw, 76vh);
+            background-size: min(80vw, 80vh);
+        }
+
+        #drumRKa {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%);
+            top: 0;
+            background-image: url(./drum_sprite.png);
+            height: min(75vw, 75vh);
+            width: min(80vw, 80vh);
+            background-position: 0vw min(225vw, 225vh);
+            background-size: min(80vw, 80vh);
+        }
+
+        #drumLDon {
+            position: absolute;
+            left: 0;
+            top: 0;
+
+            left: 50%;
+            transform: translate(-50%);
+            top: 0;
+            background-image: url(./drum_sprite.png);
+            height: min(75vw, 75vh);
+            width: min(80vw, 80vh);
+            background-position: 0vw min(372.5vw, 372.5vh);
+            background-size: min(80vw, 80vh);
+        }
+
+        #drumRDon {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%);
+            top: 0;
+            background-image: url(./drum_sprite.png);
+            height: min(75vw, 75vh);
+            width: min(80vw, 80vh);
+            background-position: 0vw min(521vw, 521vh);
+            background-size: min(80vw, 80vh);
+        }
+
+        #tapKa {
+            position: absolute;
+            border-radius: 9999px;
+            /* background: yellow; */
+            left: 50vw;
+            top: min(35vw, 35vh);
+            width: min(67vw, 67vh);
+            height: min(65vw, 65vh);
+            transform: translate(-50%, -50%);
+            margin: auto;
+            z-index: 2;
+        }
+
+        #tapDon {
+            position: absolute;
+            border-radius: 9999px;
+            /* background: green; */
+            left: 50vw;
+            top: min(32vw, 32vh);
+            width: min(52vw, 52vh);
+            height: min(46vw, 46vh);
+            transform: translate(-50%, -50%);
+            margin: auto;
+            z-index: 3;
+        }
+    </style>
+</head>
+
+<body class="w3-black">
+    <div id="drum">
+        <div id="drumHead">
+        </div>
+        <div id="drumLKa">
+        </div>
+        <div id="drumRKa">
+        </div>
+        <div id="drumLDon">
+        </div>
+        <div id="drumRDon">
+        </div>
+        <div id="tapKa">
+        </div>
+        <div id="tapDon">
+        </div>
+    </div>
+    <script>
+        // if ('serviceWorker' in navigator) {
+        //     window.addEventListener('load', function () {
+        //         navigator.serviceWorker.register('./sw.js').then(function (registration) {
+        //             // Registration was successful
+        //             console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        //         }, function (err) {
+        //             // registration failed :(
+        //             console.log('ServiceWorker registration failed: ', err);
+        //         });
+        //     });
+        // }
+    </script>
+    <script src="./index.js"></script>
+</body>
+
+</html>
