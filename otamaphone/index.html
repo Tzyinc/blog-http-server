@@ -2,8 +2,10 @@
 <html lang="en">
 
 <head>
+    <script defer src="https://umami.home.tenzhiyang.com/script.js"
+        data-website-id="847d4868-7c6a-4f93-a831-e010d8b8b667"></script>
     <meta charset="UTF-8">
-    <link rel='icon' href='favicon.ico' type='image/x-icon'/>
+    <link rel='icon' href='favicon.ico' type='image/x-icon' />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta property="og:title" content="Otamaphone">
@@ -17,7 +19,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-
         body,
         h1,
         h2,
@@ -27,15 +28,16 @@
         h6 {
             font-family: "Montserrat", sans-serif
         }
-    
+
         .center {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
         #menuDiv {
             display: none;
-            position:fixed;
+            position: fixed;
             top: 0;
             left: 0;
             bottom: 0;
@@ -46,29 +48,28 @@
 
         #body {
             display: block;
-            position:fixed;
+            position: fixed;
             top: 0;
             left: 0;
             bottom: 0;
             right: 0;
-            background:linear-gradient(
-                #999 2px, 0, transparent calc(100%/12), 0,
-                #333 calc(100%/12 + 2px), 0, transparent calc(200%/12), 0,
-                #999 calc(200%/12 + 2px), 0, transparent calc(300%/12), 0,
-                #999 calc(300%/12 + 2px), 0, transparent calc(400%/12), 0,
-                #333 calc(400%/12 + 2px), 0, transparent calc(500%/12), 0,
-                #999 calc(500%/12 + 2px), 0, transparent calc(600%/12), 0,
-                #333 calc(600%/12 + 2px), 0, transparent calc(700%/12), 0,
-                #999 calc(700%/12 + 2px), 0, transparent calc(800%/12), 0,
-                #999 calc(800%/12 + 2px), 0, transparent calc(900%/12), 0,
-                #333 calc(900%/12 + 2px), 0, transparent calc(1000%/12), 0,
-                #999 calc(1000%/12 + 2px), 0, transparent calc(1100%/12), 0,
-                #333 calc(1100%/12 + 2px), 0,
-                transparent
-                );
+            background: linear-gradient(#999 2px, 0, transparent calc(100%/12), 0,
+                    #333 calc(100%/12 + 2px), 0, transparent calc(200%/12), 0,
+                    #999 calc(200%/12 + 2px), 0, transparent calc(300%/12), 0,
+                    #999 calc(300%/12 + 2px), 0, transparent calc(400%/12), 0,
+                    #333 calc(400%/12 + 2px), 0, transparent calc(500%/12), 0,
+                    #999 calc(500%/12 + 2px), 0, transparent calc(600%/12), 0,
+                    #333 calc(600%/12 + 2px), 0, transparent calc(700%/12), 0,
+                    #999 calc(700%/12 + 2px), 0, transparent calc(800%/12), 0,
+                    #999 calc(800%/12 + 2px), 0, transparent calc(900%/12), 0,
+                    #333 calc(900%/12 + 2px), 0, transparent calc(1000%/12), 0,
+                    #999 calc(1000%/12 + 2px), 0, transparent calc(1100%/12), 0,
+                    #333 calc(1100%/12 + 2px), 0,
+                    transparent);
             z-index: 2;
             background-size: 100% 50%;
         }
+
         #menuOpen {
             position: fixed;
             top: 0;
@@ -84,6 +85,7 @@
             align-items: flex-start;
             font-size: 7vw;
         }
+
         #menuOptions {
             position: fixed;
             top: 0;
@@ -98,6 +100,7 @@
             z-index: 3;
             color: black;
         }
+
         #menuClose {
             position: fixed;
             top: 0;
@@ -122,63 +125,71 @@
             bottom: 0%;
             transform: translateX(-50%);
         }
+
         .defaultClose {
             display: block;
         }
 
-        .defaultOpen{
+        .defaultOpen {
             display: none;
         }
+
         #uploadSection {
             display: none;
         }
 
         .noselect {
-            -webkit-touch-callout: none; /* iOS Safari */
-                -webkit-user-select: none; /* Safari */
-                -khtml-user-select: none; /* Konqueror HTML */
-                -moz-user-select: none; /* Old versions of Firefox */
-                    -ms-user-select: none; /* Internet Explorer/Edge */
-                        user-select: none; /* Non-prefixed version, currently
+            -webkit-touch-callout: none;
+            /* iOS Safari */
+            -webkit-user-select: none;
+            /* Safari */
+            -khtml-user-select: none;
+            /* Konqueror HTML */
+            -moz-user-select: none;
+            /* Old versions of Firefox */
+            -ms-user-select: none;
+            /* Internet Explorer/Edge */
+            user-select: none;
+            /* Non-prefixed version, currently
                                             supported by Chrome, Opera and Firefox */
         }
+
         .slider {
-          -webkit-appearance: none;
-          width: 100%;
-          height: 25px;
-          background: #d3d3d3;
-          outline: none;
-          opacity: 0.7;
-          -webkit-transition: .2s;
-          transition: opacity .2s;
+            -webkit-appearance: none;
+            width: 100%;
+            height: 25px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
         }
 
         .slider:hover {
-          opacity: 1;
+            opacity: 1;
         }
 
         .slider::-webkit-slider-thumb {
-          -webkit-appearance: none;
-          appearance: none;
-          width: 25px;
-          height: 25px;
-          background: black;
-          cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: black;
+            cursor: pointer;
         }
 
         .slider::-moz-range-thumb {
-          width: 25px;
-          height: 25px;
-          background: black;
-          cursor: pointer;
+            width: 25px;
+            height: 25px;
+            background: black;
+            cursor: pointer;
         }
 
         .inputfile {
             background-color: white;
-            border: 1px solid black ;
+            border: 1px solid black;
             margin: 10px 0;
         }
-
     </style>
 </head>
 
@@ -191,23 +202,31 @@
         <div id="menuOptions">
             <div>
                 <h2>Wavetypes</h2>
-                <input type="radio" id="wave0" onclick="customClicked()" value="sine" name="wave" class="w3-radio" checked="checked">Sine<br />
-                <input type="radio" id="wave1" onclick="customClicked()" value="square" name="wave" class="w3-radio">Square<br />
-                <input type="radio" id="wave2" onclick="customClicked()" value="sawtooth" name="wave" class="w3-radio">Sawtooth<br />
-                <input type="radio" id="wave3" onclick="customClicked()" value="triangle" name="wave" class="w3-radio">Triangle<br />
-                <input type="radio" id="wave4" onclick="customClicked()" value="otamatone" name="wave" class="w3-radio">Otamatone<br />
-                <input type="radio" id="wave5" onclick="customClicked()" value="custom" name="wave" class="w3-radio">Custom<br />
+                <input type="radio" id="wave0" onclick="customClicked()" value="sine" name="wave" class="w3-radio"
+                    checked="checked">Sine<br />
+                <input type="radio" id="wave1" onclick="customClicked()" value="square" name="wave"
+                    class="w3-radio">Square<br />
+                <input type="radio" id="wave2" onclick="customClicked()" value="sawtooth" name="wave"
+                    class="w3-radio">Sawtooth<br />
+                <input type="radio" id="wave3" onclick="customClicked()" value="triangle" name="wave"
+                    class="w3-radio">Triangle<br />
+                <input type="radio" id="wave4" onclick="customClicked()" value="otamatone" name="wave"
+                    class="w3-radio">Otamatone<br />
+                <input type="radio" id="wave5" onclick="customClicked()" value="custom" name="wave"
+                    class="w3-radio">Custom<br />
             </div>
             <div id="uploadSection"><input type="file" class="inputfile" id="fileReader" /></div>
             <div>
                 <h2>Pitch Correction</h2>
-                <input type="radio" id="check0" value=0 name="pitch" class="w3-radio" checked="checked"> Full Control<br />
-                <input type="radio" id="check1" value=1 name="pitch"  class="w3-radio"> First Pitch Correct<br />
-                <input type="radio" id="check2" value=2 name="pitch"  class="w3-radio"> Constant Pitch Correct<br />
+                <input type="radio" id="check0" value=0 name="pitch" class="w3-radio" checked="checked"> Full
+                Control<br />
+                <input type="radio" id="check1" value=1 name="pitch" class="w3-radio"> First Pitch Correct<br />
+                <input type="radio" id="check2" value=2 name="pitch" class="w3-radio"> Constant Pitch Correct<br />
             </div>
             <div>
                 <h2>Octave Selection</h2>
-                <input onchange="calculateChange()" id="slider0" class="slider" type="range" min="0" max="2" value="1" step="1" />
+                <input onchange="calculateChange()" id="slider0" class="slider" type="range" min="0" max="2" value="1"
+                    step="1" />
             </div>
         </div>
     </div>
