@@ -10,6 +10,8 @@ class BaseMetronome {
     this.tickVolume = null;
     this.soundHz = 1000;
     this.scheduled = [];
+    this.scheduledHalf = [];
+    this.scheduledQuarters = [];
   }
 
   initAudio() {
@@ -35,10 +37,15 @@ class BaseMetronome {
     }
   }
 
-  clickAtTime(time) {
+  clickAtTime(time, beatNum) {
     // Silence the click.
     // this.tickVolume.gain.cancelScheduledValues(time);
     this.tickVolume.gain.setValueAtTime(0, time);
+    console.log(beatNum);
+    if (beatNum === 0) {
+      this.tick.frequency.setValueAtTime(this.soundHz * 2, time);
+      this.tick.frequency.setValueAtTime(this.soundHz, time + 0.001 + 0.01);
+    }
 
     // Audible click sound.
     this.tickVolume.gain.linearRampToValueAtTime(1, time + 0.001);
@@ -66,6 +73,7 @@ class WorkerMetronome extends BaseMetronome {
   constructor(tempo) {
     super(tempo);
     this.worker = new Worker("./worker.js");
+    this.beat = 0;
   }
 
   start(callbackFn) {
@@ -80,21 +88,17 @@ class WorkerMetronome extends BaseMetronome {
 
     this.worker.onmessage = (props) => {
       const { message, interval } = props.data;
-      // console.log(
-      //   "received",
-      //   props.data,
-      //   this.scheduled,
-      //   this.audioCtx.currentTime
-      // );
       if (message === "tick") {
         const gap = interval / 1000;
         const len = this.scheduled.length;
         if (len) {
           if (len <= SCHEDULE_AHEAD) {
-            this.clickAtTime(this.scheduled[len - 1] + gap);
+            this.clickAtTime(this.scheduled[len - 1] + gap, this.beat);
+            this.beat = (this.beat + 1) % 4;
           }
         } else {
-          this.clickAtTime(this.audioCtx.currentTime + gap);
+          this.clickAtTime(this.audioCtx.currentTime + gap, this.beat);
+          this.beat = (this.beat + 1) % 4;
         }
       } else if (message === "stop") {
         this.scheduled = [];
@@ -104,7 +108,7 @@ class WorkerMetronome extends BaseMetronome {
 
   changeTempo(newTempo) {
     this.tempo = newTempo;
-    const timeoutDuration = (60 / this.tempo) * 1000;
+    const timeoutDuration = (60 / (4 * this.tempo)) * 1000;
     this.worker.postMessage({
       message: "set_interval",
       interval: timeoutDuration,
@@ -117,18 +121,18 @@ class WorkerMetronome extends BaseMetronome {
   }
 
   cleanScheduled() {
-    const before = this.scheduled.length;
+    const beforeScheduled = this.scheduled.length;
     this.scheduled = this.scheduled.filter(
       (item) => item > this.audioCtx.currentTime
     );
 
-    return Boolean(this.scheduled.length - before);
+    return Boolean(this.scheduled.length - beforeScheduled);
   }
 }
 
 const startBtn = document.getElementById("startBtn");
 
-const tempos = [40, 60, 120, 240];
+const tempos = [40, 60, 120, 200];
 const tempoButtons = [];
 tempos.forEach((item) => {
   const button = document.createElement("button");
@@ -191,14 +195,18 @@ function loop() {
 
 const fpsDiv = document.getElementById("fps");
 
-const EPSILON = 0.01;
+const display = ["⬜️⬜️⬜️⬜️", "🔴", "🟢🟢", "🟡🟡🟡"];
+let index = 0;
 
 function render(dt, now) {
   fpsCount = fpsCount.filter((time) => now - time < 1000);
   const shouldRed = metronome?.cleanScheduled();
+  if (shouldRed) {
+    index = (index + 1) % 4;
+  }
   fpsDiv.innerHTML = `
     fps: ${fpsCount.length}<br/>
-    ${shouldRed ? "🔴" : "⬜️"}
+    ${display[index]}
   `;
   fpsCount.push(timestamp());
 }
