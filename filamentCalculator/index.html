@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Filament Mass Calculator</title>
+    <style>
+      :root {
+        --bg: #f7f4ef;
+        --card: #ffffff;
+        --ink: #1f1f1f;
+        --muted: #5b5b5b;
+        --accent: #c1662a;
+        --accent-2: #2a6a6a;
+        --border: #e5dfd6;
+        --shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Georgia", "Times New Roman", serif;
+        color: var(--ink);
+        background: radial-gradient(1200px 600px at 10% 10%, #fff7e8, var(--bg));
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 32px;
+      }
+
+      .wrap {
+        width: min(920px, 100%);
+        display: grid;
+        gap: 24px;
+      }
+
+      header {
+        display: grid;
+        gap: 8px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(28px, 4vw, 40px);
+        letter-spacing: 0.2px;
+      }
+
+      .subtitle {
+        margin: 0;
+        color: var(--muted);
+        font-size: 16px;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+        padding: 24px;
+      }
+
+      .grid {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+
+      @media (min-width: 900px) {
+        .grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          grid-template-areas:
+            "diameter thickness turns"
+            "material density .";
+        }
+
+        .field-material {
+          grid-area: material;
+        }
+
+        .field-diameter {
+          grid-area: diameter;
+        }
+
+        .field-thickness {
+          grid-area: thickness;
+        }
+
+        .field-turns {
+          grid-area: turns;
+        }
+
+        .field-density {
+          grid-area: density;
+        }
+      }
+
+      label {
+        display: grid;
+        gap: 6px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      input[type="number"] {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        font-size: 16px;
+        font-family: "Georgia", "Times New Roman", serif;
+        transition: border-color 120ms ease, box-shadow 120ms ease;
+      }
+
+      select {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        font-size: 16px;
+        font-family: "Georgia", "Times New Roman", serif;
+        background: #ffffff;
+        transition: border-color 120ms ease, box-shadow 120ms ease;
+      }
+
+      input[type="number"]:focus,
+      select:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(193, 102, 42, 0.15);
+      }
+
+      .result {
+        display: grid;
+        gap: 8px;
+        align-items: start;
+      }
+
+      .result-value {
+        font-size: clamp(32px, 6vw, 48px);
+        font-weight: 600;
+        color: var(--accent);
+      }
+
+      .result-unit {
+        font-size: 16px;
+        color: var(--muted);
+      }
+
+      .note {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .error {
+        color: #9b2c2c;
+        font-size: 14px;
+        display: none;
+      }
+
+      .error.visible {
+        display: block;
+      }
+
+      .formula {
+        font-family: "Courier New", Courier, monospace;
+        font-size: 12px;
+        color: var(--accent-2);
+        background: #f0f7f7;
+        padding: 8px 10px;
+        border-radius: 10px;
+        border: 1px solid #d4e7e7;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <header>
+        <h1>Filament Mass Calculator</h1>
+        <p class="subtitle">
+          Estimate how much filament is left based on spool diameter, turns, and
+          material density.
+        </p>
+      </header>
+
+      <section class="card">
+        <div class="grid">
+          <label class="field-diameter">
+            Spool diameter (mm)
+            <input id="diameter" type="number" step="0.1" min="0" value="55" />
+          </label>
+          <label class="field-thickness">
+            Filament thickness (mm)
+            <input id="thickness" type="number" step="0.01" min="0" value="1.75" />
+          </label>
+          <label class="field-turns">
+            Number of turns
+            <input id="turns" type="number" step="0.1" min="0" value="8" />
+          </label>
+          <label class="field-material">
+            Material preset
+            <select id="material">
+              <option value="1.24" selected>Bambu PLA Basic (1.24 g/cm³)</option>
+              <option value="1.26">Bambu PLA Matte / PLA Sparkle (1.26 g/cm³)</option>
+              <option value="1.19">Bambu PLA Galaxy (1.19 g/cm³)</option>
+              <option value="1.21">Bambu PLA Aero (Filament) (1.21 g/cm³)</option>
+              <option value="1.25">Bambu PETG Basic (1.25 g/cm³)</option>
+              <option value="custom">Custom</option>
+            </select>
+          </label>
+          <label class="field-density">
+            Filament density (g/cm³)
+            <input id="density" type="number" step="0.01" min="0" value="1.24" />
+          </label>
+        </div>
+      </section>
+
+      <section class="card result">
+        <div>
+          <div class="result-value" id="resultValue">--</div>
+          <div class="result-unit">grams of filament</div>
+        </div>
+        <div class="error" id="errorText">All inputs must be greater than 0.</div>
+        <div class="formula">
+          length = π · D · turns; volume = length · area; mass = volume · density
+        </div>
+        <div class="note">
+          Model: single-layer coil using the average spool diameter.
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const materialSelect = document.getElementById("material");
+      const inputs = [
+        document.getElementById("diameter"),
+        document.getElementById("thickness"),
+        document.getElementById("turns"),
+        document.getElementById("density"),
+      ];
+      const resultValue = document.getElementById("resultValue");
+      const errorText = document.getElementById("errorText");
+
+      function toNumber(input) {
+        return Number.parseFloat(input.value);
+      }
+
+      function formatNumber(value) {
+        if (!Number.isFinite(value)) return "--";
+        return value.toFixed(2);
+      }
+
+      function calculate() {
+        const diameterMm = toNumber(inputs[0]);
+        const thicknessMm = toNumber(inputs[1]);
+        const turns = toNumber(inputs[2]);
+        const density = toNumber(inputs[3]);
+
+        const valid =
+          diameterMm > 0 && thicknessMm > 0 && turns > 0 && density > 0;
+
+        if (!valid) {
+          errorText.classList.add("visible");
+          resultValue.textContent = "--";
+          return;
+        }
+
+        errorText.classList.remove("visible");
+
+        const diameterCm = diameterMm / 10;
+        const thicknessCm = thicknessMm / 10;
+        const radiusCm = thicknessCm / 2;
+        const areaCm2 = Math.PI * radiusCm * radiusCm;
+        const lengthCm = Math.PI * diameterCm * turns;
+        const volumeCm3 = lengthCm * areaCm2;
+        const massG = volumeCm3 * density;
+
+        resultValue.textContent = formatNumber(massG);
+      }
+
+      inputs.forEach((input) => {
+        input.addEventListener("input", calculate);
+      });
+
+      materialSelect.addEventListener("change", () => {
+        if (materialSelect.value === "custom") return;
+        inputs[3].value = materialSelect.value;
+        calculate();
+      });
+
+      inputs[3].addEventListener("input", () => {
+        materialSelect.value = "custom";
+      });
+
+      calculate();
+    </script>
+  </body>
+</html>
