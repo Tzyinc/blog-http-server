@@ -22,7 +22,10 @@ const dom = {
   tickOutput: document.getElementById("tickOutput"),
   feedback: document.getElementById("feedback"),
   devModeToggle: document.getElementById("devModeToggle"),
-  resetGameBtn: document.getElementById("resetGameBtn")
+  shiftBitsBtn: document.getElementById("shiftBitsBtn"),
+  resetGameBtn: document.getElementById("resetGameBtn"),
+  winOverlay: document.getElementById("winOverlay"),
+  winOkBtn: document.getElementById("winOkBtn")
 };
 
 function formatNumber(value) {
@@ -36,7 +39,7 @@ function formatNumber(value) {
 }
 
 function renderStats() {
-  dom.currency.textContent = formatNumber(state.currency);
+  dom.currency.textContent = state.hasWon ? "naneinf" : formatNumber(state.currency);
   dom.tickOutput.textContent = formatNumber(state.tickOutput);
   dom.feedback.textContent = state.message;
 }
@@ -228,6 +231,24 @@ function render() {
   renderShop();
   renderBoard();
   renderStats();
+  if (dom.winOverlay) {
+    const showWin = state.hasWon && state.currency >= MAX_SCORE && !state.winOverlayDismissed;
+    dom.winOverlay.hidden = !showWin;
+  }
+}
+
+function triggerWin() {
+  state.hasWon = true;
+  state.winOverlayDismissed = false;
+  state.message = "Victory achieved!";
+  saveStateToStorage(state);
+}
+
+function maybeTriggerWin(previousCurrency) {
+  if (state.hasWon) return;
+  if (previousCurrency >= MAX_SCORE) return;
+  if (state.currency < MAX_SCORE) return;
+  triggerWin();
 }
 
 function tryRestoreSavedState() {
@@ -241,7 +262,14 @@ function tryRestoreSavedState() {
     state.message = "Save was invalid. Started a fresh run.";
     clearSavedState();
     saveStateToStorage(state);
+    return;
   }
+
+  // Guard against stale/malformed win flags in persisted data.
+  state.hasWon = state.hasWon && state.currency >= MAX_SCORE;
+  // Never auto-open overlay on refresh; only open when threshold is crossed during active play.
+  state.winOverlayDismissed = true;
+  saveStateToStorage(state);
 }
 
 function performReset() {
@@ -255,16 +283,35 @@ function performReset() {
 function startLoop() {
   dom.devModeToggle.addEventListener("change", () => {
     state.devMode = dom.devModeToggle.checked;
+    if (dom.shiftBitsBtn) dom.shiftBitsBtn.hidden = !state.devMode;
     if (dom.resetGameBtn) dom.resetGameBtn.hidden = !state.devMode;
     renderBoard();
+  });
+
+  dom.shiftBitsBtn?.addEventListener("click", () => {
+    const previousCurrency = state.currency;
+    state.currency = Math.min(MAX_SCORE, state.currency * 2);
+    state.message = "Dev shift applied: currency ×2.";
+    maybeTriggerWin(previousCurrency);
+    saveStateToStorage(state);
+    render();
   });
 
   dom.resetGameBtn?.addEventListener("click", () => {
     performReset();
   });
 
+  dom.winOkBtn?.addEventListener("click", () => {
+    if (state.winOverlayDismissed) return;
+    state.winOverlayDismissed = true;
+    saveStateToStorage(state);
+    render();
+  });
+
   setInterval(() => {
+    const previousCurrency = state.currency;
     runTick(state);
+    maybeTriggerWin(previousCurrency);
     render();
     pulseTickFlows();
   }, TICK_MS);
@@ -346,6 +393,11 @@ function runFloorAndFormatChecks() {
     formatted[5] !== "1.8e108"
   ) {
     console.warn("Format checks failed", formatted);
+  }
+
+  const winDisplayState = { ...state, hasWon: true };
+  if ((winDisplayState.hasWon ? "naneinf" : formatNumber(winDisplayState.currency)) !== "naneinf") {
+    console.warn("Win display override failed");
   }
 }
 

@@ -158,3 +158,79 @@ body.dragging .cell[draggable="true"] { cursor: grabbing; }
 @media (max-width: 900px) {
   .layout { grid-template-columns: 1fr; }
 }
+
+.win-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 12, 20, 0.72);
+  display: grid;
+  place-items: center;
+  z-index: 30;
+}
+
+.win-overlay[hidden] {
+  display: none !important;
+}
+
+.win-modal {
+  position: relative;
+  width: min(440px, calc(100vw - 28px));
+  padding: 26px 20px 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: linear-gradient(160deg, rgba(20, 33, 58, 0.95), rgba(28, 45, 78, 0.92));
+  text-align: center;
+  overflow: hidden;
+}
+
+.win-modal h2 {
+  margin: 6px 0 8px;
+  font-size: 1.6rem;
+}
+
+.win-modal p {
+  margin: 0 0 16px;
+  color: #dce8f5;
+}
+
+#winOkBtn {
+  border: 0;
+  border-radius: 8px;
+  padding: 8px 14px;
+  color: #0f1720;
+  font-weight: 700;
+  background: #ffd166;
+  cursor: pointer;
+}
+
+#winOkBtn:hover {
+  background: #ffdf91;
+}
+
+.confetti-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.confetti {
+  position: absolute;
+  top: -12px;
+  width: 10px;
+  height: 16px;
+  border-radius: 2px;
+  opacity: 0.92;
+  animation: confetti-fall 1300ms linear infinite;
+}
+
+.confetti.c1 { left: 8%; background: #ff6b6b; animation-delay: 0ms; }
+.confetti.c2 { left: 23%; background: #ffd166; animation-delay: 180ms; }
+.confetti.c3 { left: 40%; background: #06d6a0; animation-delay: 320ms; }
+.confetti.c4 { left: 58%; background: #4cc9f0; animation-delay: 90ms; }
+.confetti.c5 { left: 74%; background: #f72585; animation-delay: 260ms; }
+.confetti.c6 { left: 90%; background: #bde0fe; animation-delay: 420ms; }
+
+@keyframes confetti-fall {
+  from { transform: translateY(-10%) rotate(0deg); }
+  to { transform: translateY(270px) rotate(330deg); }
+}

@@ -38,6 +38,7 @@
           <input id="devModeToggle" type="checkbox" />
           Dev Mode
         </label>
+        <button id="shiftBitsBtn" class="dev-reset" type="button" hidden>Shift Bits ×2</button>
         <button id="resetGameBtn" class="dev-reset" type="button" hidden>Reset Game</button>
       </header>
 
@@ -62,6 +63,21 @@
         </aside>
       </section>
     </main>
+    <div id="winOverlay" class="win-overlay" hidden>
+      <div class="win-modal" role="dialog" aria-modal="true" aria-labelledby="winTitle">
+        <div class="confetti-layer" aria-hidden="true">
+          <span class="confetti c1"></span>
+          <span class="confetti c2"></span>
+          <span class="confetti c3"></span>
+          <span class="confetti c4"></span>
+          <span class="confetti c5"></span>
+          <span class="confetti c6"></span>
+        </div>
+        <h2 id="winTitle">You Win!</h2>
+        <p>You reached the max value. Amazing run.</p>
+        <button id="winOkBtn" type="button">OK</button>
+      </div>
+    </div>
 
     <script type="module" src="main.js"></script>
   </body>

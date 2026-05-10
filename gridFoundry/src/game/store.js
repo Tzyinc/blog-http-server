@@ -28,7 +28,9 @@ export function createState() {
     message: "",
     shop: createShop(),
     selectedShopItem: NODE_TYPES[0] ?? null,
-    dragSource: null
+    dragSource: null,
+    hasWon: false,
+    winOverlayDismissed: false
   };
 }
 
@@ -124,7 +126,9 @@ export function buildSavePayload(state) {
         return acc;
       }, {}),
       selectedShopItem: sanitizeSelected(state.selectedShopItem),
-      nextNodeId: toInt(state.nextNodeId, 1)
+      nextNodeId: toInt(state.nextNodeId, 1),
+      hasWon: Boolean(state.hasWon),
+      winOverlayDismissed: Boolean(state.winOverlayDismissed)
     }
   };
 }
@@ -146,7 +150,9 @@ export function parseSavePayload(raw) {
     tickOutput: toInt(data.tickOutput, 0),
     shop,
     selectedShopItem: sanitizeSelected(data.selectedShopItem),
-    nextNodeId: Math.max(1, toInt(data.nextNodeId, 1))
+    nextNodeId: Math.max(1, toInt(data.nextNodeId, 1)),
+    hasWon: Boolean(data.hasWon),
+    winOverlayDismissed: Boolean(data.winOverlayDismissed)
   };
 }
 
@@ -160,6 +166,8 @@ export function hydrateStateFromPayload(state, payload) {
   state.shop = parsed.shop;
   state.selectedShopItem = parsed.selectedShopItem;
   state.nextNodeId = parsed.nextNodeId;
+  state.hasWon = parsed.hasWon;
+  state.winOverlayDismissed = parsed.winOverlayDismissed;
   state.lastTickFlows = [];
   state.message = "Loaded saved game.";
   state.dragSource = null;
