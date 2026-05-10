@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grid Foundry</title>
+    <meta
+      name="description"
+      content="Grid Foundry is a deterministic 4x4 node strategy game where you place, merge, and optimize output flow."
+    />
+    <meta name="theme-color" content="#0f1720" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Grid Foundry" />
+    <meta
+      property="og:description"
+      content="Place and merge nodes on a 4x4 board to build deterministic score flow in Grid Foundry."
+    />
+    <meta property="og:image" content="assets/icons/icon-512.png" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Grid Foundry" />
+    <meta
+      name="twitter:description"
+      content="Place and merge nodes on a 4x4 board to build deterministic score flow in Grid Foundry."
+    />
+    <meta name="twitter:image" content="assets/icons/icon-512.png" />
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/icon-16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/icon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/icon-180.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="topbar">
+        <h1>Grid Foundry</h1>
+        <p>Select a shop node, then click the 4x4 board to buy and place.</p>
+        <label class="devmode-toggle">
+          <input id="devModeToggle" type="checkbox" />
+          Dev Mode
+        </label>
+        <button id="resetGameBtn" class="dev-reset" type="button" hidden>Reset Game</button>
+      </header>
+
+      <section class="layout">
+        <aside class="panel">
+          <h2>Shop</h2>
+          <div id="shop" class="shop"></div>
+          <p id="feedback" class="feedback" aria-live="polite"></p>
+        </aside>
+
+        <section class="panel board-panel">
+          <h2>Board</h2>
+          <div id="board" class="board" aria-label="4x4 board"></div>
+        </section>
+
+        <aside class="panel">
+          <h2>Stats</h2>
+          <div class="stats">
+            <div><span>Currency</span><strong id="currency">0</strong></div>
+            <div><span>Tick Score</span><strong id="tickOutput">0</strong></div>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
