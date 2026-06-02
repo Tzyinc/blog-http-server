@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Audio Log-Frequency POC</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <p class="eyebrow">Experimental</p>
+        <h1>Audio Log-Frequency POC</h1>
+        <p class="intro">
+          Separate microphone-input proof of concept that projects spectral energy onto a note-aligned log-frequency grid.
+        </p>
+      </header>
+
+      <section class="controls">
+        <button id="startButton">Start Microphone</button>
+        <button id="stopButton" disabled>Stop</button>
+        <button id="freezeButton" type="button">Freeze Chord Updates</button>
+        <label class="control">
+          <span>Volume Gate</span>
+          <input id="gateInput" type="range" min="-75" max="-25" value="-52" />
+          <output id="gateValue">-52 dB</output>
+        </label>
+        <label class="control">
+          <span>FFT Size</span>
+          <select id="fftSizeSelect">
+            <option value="4096">4096</option>
+            <option value="8192" selected>8192</option>
+            <option value="16384">16384</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="status-panel">
+        <div class="status-line">
+          <span class="status-label">Status</span>
+          <span id="statusText">Idle</span>
+        </div>
+        <div class="status-line">
+          <span class="status-label">Input Level</span>
+          <span id="levelText">-inf dB</span>
+        </div>
+      </section>
+
+      <section class="notes-grid">
+        <article class="card">
+          <h2>Live Detection</h2>
+          <p class="caption">Raw note candidates scored on the log-frequency note grid.</p>
+          <div id="liveNotes" class="note-list empty">No notes</div>
+        </article>
+        <article class="card latest">
+          <h2>Latest Chord Summary</h2>
+          <p class="caption">Approximate bass and top notes plus unique middle pitch classes from the latest gated event.</p>
+          <div id="latestChord" class="summary empty">
+            <div class="summary-row">
+              <span class="summary-label">Bass Note</span>
+              <span id="bassNoteText" class="summary-value">Nothing detected yet</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Top Note</span>
+              <span id="topNoteText" class="summary-value">Nothing detected yet</span>
+            </div>
+            <div class="summary-block">
+              <span class="summary-label">Middle Chord Tones</span>
+              <p class="summary-copy">Pitch classes only. This POC prioritizes chord practicality over exact middle-octave recovery.</p>
+              <div id="pitchClassesList" class="pitch-class-list empty">No pitch classes yet</div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="footnote">
+        <p>
+          This is a separate experiment from <code>/audio-chord-poc/</code>. Use both to compare dense-chord behavior directly.
+        </p>
+      </section>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
