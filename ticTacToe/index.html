@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="game-card" aria-labelledby="game-title">
+        <p class="eyebrow">Mobile Friendly</p>
+        <h1 id="game-title">Tic Tac Toe</h1>
+        <p class="intro">
+          Tap a square to place your mark. First to complete three in a row wins.
+        </p>
+
+        <div class="status-panel">
+          <p id="status" class="status" aria-live="polite">Player X starts</p>
+          <button id="reset-button" class="secondary-button" type="button">
+            New Round
+          </button>
+        </div>
+
+        <div class="scoreboard" aria-label="Scoreboard">
+          <div class="score">
+            <span class="score-label">Player X</span>
+            <strong id="score-x">0</strong>
+          </div>
+          <div class="score">
+            <span class="score-label">Draws</span>
+            <strong id="score-draw">0</strong>
+          </div>
+          <div class="score">
+            <span class="score-label">Player O</span>
+            <strong id="score-o">0</strong>
+          </div>
+        </div>
+
+        <div class="board" id="board" role="grid" aria-label="Tic tac toe board">
+          <button class="cell" type="button" role="gridcell" data-cell-index="0" aria-label="Cell 1"></button>
+          <button class="cell" type="button" role="gridcell" data-cell-index="1" aria-label="Cell 2"></button>
+          <button class="cell" type="button" role="gridcell" data-cell-index="2" aria-label="Cell 3"></button>
+          <button class="cell" type="button" role="gridcell" data-cell-index="3" aria-label="Cell 4"></button>
+          <button class="cell" type="button" role="gridcell" data-cell-index="4" aria-label="Cell 5"></button>
+          <button class="cell" type="button" role="gridcell" data-cell-index="5" aria-label="Cell 6"></button>
+          <button class="cell" type="button" role="gridcell" data-cell-index="6" aria-label="Cell 7"></button>
+          <button class="cell" type="button" role="gridcell" data-cell-index="7" aria-label="Cell 8"></button>
+          <button class="cell" type="button" role="gridcell" data-cell-index="8" aria-label="Cell 9"></button>
+        </div>
+
+        <button id="clear-button" class="primary-button" type="button">
+          Reset Scoreboard
+        </button>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+  </html>
