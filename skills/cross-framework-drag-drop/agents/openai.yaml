@@ -1,0 +1,4 @@
+interface:
+  display_name: "Cross-Framework Drag Drop"
+  short_description: "Build portable drag-and-drop UI interactions"
+  default_prompt: "Use $cross-framework-drag-drop to build a portable HTML/CSS/JS drag-and-drop interaction with React, Vue, or Svelte adapters."
